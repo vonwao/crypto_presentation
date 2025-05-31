@@ -29,6 +29,12 @@
     --font-size-code: 1.4rem;   /* For code blocks */
     --font-size-label: 1.2rem;  /* For labels */
     
+    /* NEW: Specialized sizes for different content types */
+    --font-size-icon: 3rem;     /* Icons and decorative elements */
+    --font-size-content: 1.4rem; /* Transaction content and small details */
+    --font-size-nav: 1.2rem;    /* Navigation elements */
+    --font-size-bullet: 1.5rem; /* Bullet points and arrows */
+    
     /* Animation timing */
     --transition-fast: 0.3s ease;
     --transition-medium: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -229,7 +235,7 @@ body {
 }
 
 .bullet {
-    font-size: 1.5rem;
+    font-size: var(--font-size-bullet);
     color: var(--primary-gold);
     flex-shrink: 0;
 }
@@ -351,6 +357,12 @@ code, .hash-value, .signature-example {
         --font-size-sm: 1.4rem;     /* Was 1.2rem */
         --font-size-xs: 1.2rem;     /* Was 1.1rem */
         --content-padding: 3rem;
+        
+        /* Scale specialized sizes */
+        --font-size-icon: 2.5rem;
+        --font-size-content: 1.3rem;
+        --font-size-nav: 1.1rem;
+        --font-size-bullet: 1.3rem;
     }
 }
 
@@ -362,6 +374,12 @@ code, .hash-value, .signature-example {
         --font-size-sm: 1.3rem;     /* Was 1.1rem */
         --font-size-xs: 1.1rem;     /* Keep minimum readable */
         --content-padding: 2rem;
+        
+        /* Scale specialized sizes for tablets */
+        --font-size-icon: 2.2rem;
+        --font-size-content: 1.2rem;
+        --font-size-nav: 1.0rem;
+        --font-size-bullet: 1.2rem;
     }
     
     .key-points {
@@ -369,6 +387,35 @@ code, .hash-value, .signature-example {
     }
     
     .key-point {
+        min-width: auto;
+    }
+}
+
+/* NEW: Mobile breakpoint for excellent small screen readability */
+@media (max-width: 768px) {
+    :root {
+        --font-size-xl: 2.5rem;     /* Larger than before for mobile */
+        --font-size-lg: 2rem;       /* Larger than before */
+        --font-size-md: 1.6rem;     /* Larger than before */
+        --font-size-sm: 1.4rem;     /* Larger than before */
+        --font-size-xs: 1.2rem;     /* Never below 1.2rem */
+        --content-padding: 1.5rem;
+        
+        /* Mobile-optimized specialized sizes */
+        --font-size-icon: 2rem;     /* Smaller icons for mobile */
+        --font-size-content: 1.3rem; /* Never below 1.3rem for readability */
+        --font-size-nav: 1.1rem;    /* Readable navigation */
+        --font-size-bullet: 1.2rem; /* Readable bullets */
+        --font-size-code: 1.2rem;   /* Readable code */
+        --font-size-label: 1.1rem;  /* Readable labels */
+    }
+    
+    .slide-header h1 {
+        line-height: 1.2; /* Tighter line height for mobile */
+    }
+    
+    .key-point {
+        padding: 1rem; /* Smaller padding on mobile */
         min-width: auto;
     }
 }
@@ -383,7 +430,7 @@ code, .hash-value, .signature-example {
     backdrop-filter: blur(10px);
     border-radius: 8px;
     padding: 8px 16px;
-    font-size: 0.9rem;
+    font-size: var(--font-size-nav);
     color: var(--text-secondary);
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;

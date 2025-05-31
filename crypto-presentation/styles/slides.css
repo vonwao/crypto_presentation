@@ -33,7 +33,7 @@
 }
 
 .concept-icon {
-    font-size: 4rem;
+    font-size: var(--font-size-icon);
     margin-bottom: 1rem;
     display: block;
 }
@@ -215,7 +215,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4rem;
+    font-size: var(--font-size-icon);
     transition: all 0.3s ease;
 }
 
@@ -291,7 +291,7 @@
 }
 
 .comparison-arrow {
-    font-size: 3rem;
+    font-size: var(--font-size-icon);
     color: var(--primary-gold);
     font-weight: bold;
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
@@ -308,7 +308,7 @@
     position: absolute;
     top: -25px;
     right: -10px;
-    font-size: 0.8rem;
+    font-size: var(--font-size-nav);
     color: var(--alert-red);
     background: rgba(255, 71, 87, 0.2);
     padding: 0.2rem 0.5rem;
@@ -481,7 +481,7 @@
 }
 
 .analogy-icon {
-    font-size: 2rem;
+    font-size: var(--font-size-bullet);
 }
 
 .analogy-header h4 {
@@ -510,7 +510,7 @@
 }
 
 .analogy-arrow {
-    font-size: 2rem;
+    font-size: var(--font-size-bullet);
     color: var(--primary-gold);
     font-weight: bold;
     text-align: center;
@@ -535,7 +535,7 @@
 }
 
 .guarantee-icon {
-    font-size: 3rem;
+    font-size: var(--font-size-icon);
 }
 
 .guarantee-text h3 {
@@ -630,7 +630,7 @@
 }
 
 .key-icon {
-    font-size: 3rem;
+    font-size: var(--font-size-icon);
     margin-bottom: 1rem;
 }
 
@@ -655,7 +655,7 @@
 }
 
 .process-arrow {
-    font-size: 2rem;
+    font-size: var(--font-size-bullet);
     color: var(--primary-gold);
     font-weight: bold;
 }
@@ -724,7 +724,7 @@
 }
 
 .comparison-icon {
-    font-size: 2rem;
+    font-size: var(--font-size-bullet);
 }
 
 .comparison-header h4 {
@@ -824,7 +824,7 @@
 }
 
 .data-icon, .solution-icon {
-    font-size: 3rem;
+    font-size: var(--font-size-icon);
     margin-bottom: 1rem;
 }
 
@@ -840,7 +840,7 @@
 }
 
 .vs-arrow {
-    font-size: 2rem;
+    font-size: var(--font-size-bullet);
     color: var(--primary-gold);
     font-weight: bold;
 }
@@ -992,7 +992,7 @@
 }
 
 .transaction-content {
-    font-size: 0.9rem;
+    font-size: var(--font-size-content);
     color: var(--text-primary);
     margin-bottom: 0.5rem;
     font-family: 'Segoe UI', sans-serif;
@@ -1156,7 +1156,7 @@
 }
 
 .question-icon {
-    font-size: 2rem;
+    font-size: var(--font-size-bullet);
 }
 
 .question-text h3 {
@@ -1253,7 +1253,7 @@
 }
 
 .result-icon {
-    font-size: 2rem;
+    font-size: var(--font-size-bullet);
     color: var(--success-green);
 }
 
@@ -1295,7 +1295,7 @@
 }
 
 .method-icon {
-    font-size: 3rem;
+    font-size: var(--font-size-icon);
     margin-bottom: 1rem;
 }
 
@@ -1326,7 +1326,7 @@
 }
 
 .vs-divider {
-    font-size: 2rem;
+    font-size: var(--font-size-bullet);
     color: var(--primary-gold);
     font-weight: bold;
     text-align: center;
@@ -1355,7 +1355,7 @@
 }
 
 .hacker-icon {
-    font-size: 2rem;
+    font-size: var(--font-size-bullet);
     color: var(--alert-red);
 }
 
@@ -1431,7 +1431,7 @@
 }
 
 .tamper-arrow {
-    font-size: 2rem;
+    font-size: var(--font-size-bullet);
     color: var(--alert-red);
     font-weight: bold;
 }
@@ -1449,7 +1449,7 @@
 }
 
 .tamper-result .result-icon {
-    font-size: 2rem;
+    font-size: var(--font-size-bullet);
     color: var(--alert-red);
 }
 
@@ -1715,7 +1715,7 @@
     .tree-node {
         min-width: 80px;
         padding: 0.8rem;
-        font-size: 0.8rem;
+        font-size: var(--font-size-nav);
     }
     
     .tree-node.leaf-node {
@@ -1784,7 +1784,7 @@
     .tree-node {
         min-width: 70px;
         padding: 0.6rem;
-        font-size: 0.7rem;
+        font-size: var(--font-size-nav);
     }
     
     .tree-node.leaf-node {
@@ -1804,7 +1804,7 @@
     .blender-inner {
         width: 130px;
         height: 130px;
-        font-size: 2.5rem;
+        font-size: var(--font-size-icon);
     }
     
     .input-display, .output-display {
