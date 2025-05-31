@@ -4,7 +4,7 @@
 class BlockchainPart2Demo {
     constructor() {
         // Simple security benefits in plain English
-        this.securityBenefits = [
+        this.securityBenefits = [ 
             {
                 title: "No Single Point of Failure",
                 description: "No one computer controls everything",
