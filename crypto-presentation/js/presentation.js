@@ -249,10 +249,12 @@ class Presentation {
             
             this.slidesContainer = document.getElementById('slides-container');
             this.navIndicator = document.getElementById('navIndicator');
+            this.breadcrumbNav = document.getElementById('breadcrumbNav');
             
             console.log('DOM elements found:', {
                 slidesContainer: !!this.slidesContainer,
-                navIndicator: !!this.navIndicator
+                navIndicator: !!this.navIndicator,
+                breadcrumbNav: !!this.breadcrumbNav
             });
             
             if (!this.slidesContainer) {
@@ -745,6 +747,17 @@ class Presentation {
                 dot.dataset.subSlideIndex = flatSlide.subSlideIndex;
             }
             
+            // Add topic-based visual indicators
+            if (flatSlide.id.includes('hash')) {
+                dot.classList.add('topic-hash');
+            } else if (flatSlide.id.includes('signatures')) {
+                dot.classList.add('topic-signatures');
+            } else if (flatSlide.id.includes('merkle')) {
+                dot.classList.add('topic-merkle');
+            } else if (flatSlide.id.includes('blockchain')) {
+                dot.classList.add('topic-blockchain');
+            }
+            
             dot.dataset.slide = flatSlide.id;
             dot.dataset.index = index;
             dot.title = flatSlide.title;
@@ -843,6 +856,22 @@ class Presentation {
                     e.preventDefault();
                     this.goToSlide(0);
                     break;
+                case '1':
+                    e.preventDefault();
+                    this.jumpToTopic('hash');
+                    break;
+                case '2':
+                    e.preventDefault();
+                    this.jumpToTopic('signatures');
+                    break;
+                case '3':
+                    e.preventDefault();
+                    this.jumpToTopic('merkle');
+                    break;
+                case '4':
+                    e.preventDefault();
+                    this.jumpToTopic('blockchain');
+                    break;
                 case 'p':
                 case 'P':
                     if (e.ctrlKey || e.metaKey) {
@@ -889,6 +918,40 @@ class Presentation {
     }
 
     /**
+     * Jumps to the first slide of a specific topic
+     * @param {string} topic - The topic to jump to ('hash', 'signatures', 'merkle', 'blockchain')
+     */
+    jumpToTopic(topic) {
+        let targetIndex = 0;
+        
+        switch (topic) {
+            case 'hash':
+                // Find first hash slide (hash-demo)
+                targetIndex = this.flattenedSlides.findIndex(slide => slide.id === 'hash-demo');
+                break;
+            case 'signatures':
+                // Find first signatures slide (signatures-1-keys)
+                targetIndex = this.flattenedSlides.findIndex(slide => slide.id === 'signatures-1-keys');
+                break;
+            case 'merkle':
+                // Find first merkle slide (merkle-1-problem)
+                targetIndex = this.flattenedSlides.findIndex(slide => slide.id === 'merkle-1-problem');
+                break;
+            case 'blockchain':
+                // Find first blockchain slide (blockchain-1-signing)
+                targetIndex = this.flattenedSlides.findIndex(slide => slide.id === 'blockchain-1-signing');
+                break;
+            default:
+                targetIndex = 0; // Default to intro
+        }
+        
+        if (targetIndex >= 0) {
+            this.goToSlide(targetIndex);
+            PresentationUtils.debug(`Jumped to ${topic} topic at slide ${targetIndex}`);
+        }
+    }
+
+    /**
      * Navigates to a specific slide
      * @param {number} index - Target slide index
      */
@@ -914,6 +977,9 @@ class Presentation {
 
             // Update navigation
             this.updateNavigation(index);
+
+            // Update breadcrumb
+            this.updateBreadcrumb(index);
 
             // Update URL
             this.updateURL(index);
@@ -960,6 +1026,44 @@ class Presentation {
         dots.forEach((dot, index) => {
             dot.classList.toggle('active', index === activeIndex);
         });
+    }
+
+    /**
+     * Updates breadcrumb navigation
+     * @param {number} activeIndex - Active slide index
+     */
+    updateBreadcrumb(activeIndex) {
+        if (!this.breadcrumbNav) return;
+        
+        const flatSlide = this.flattenedSlides[activeIndex];
+        if (!flatSlide) return;
+        
+        let breadcrumbHTML = '<span class="breadcrumb-item">Crypto Fundamentals</span>';
+        
+        // Add topic breadcrumb
+        let topicName = '';
+        if (flatSlide.id.includes('hash')) {
+            topicName = 'Hash Functions';
+        } else if (flatSlide.id.includes('signatures')) {
+            topicName = 'Digital Signatures';
+        } else if (flatSlide.id.includes('merkle')) {
+            topicName = 'Merkle Trees';
+        } else if (flatSlide.id.includes('blockchain')) {
+            topicName = 'Blockchain';
+        }
+        
+        if (topicName) {
+            breadcrumbHTML += '<span class="breadcrumb-separator">></span>';
+            breadcrumbHTML += `<span class="breadcrumb-item">${topicName}</span>`;
+            
+            // Add sub-topic if it's a sub-slide
+            if (flatSlide.isSubSlide) {
+                breadcrumbHTML += '<span class="breadcrumb-separator">></span>';
+                breadcrumbHTML += `<span class="breadcrumb-current">${flatSlide.title.split(':')[1]?.trim() || flatSlide.title}</span>`;
+            }
+        }
+        
+        this.breadcrumbNav.innerHTML = breadcrumbHTML;
     }
 
     /**
