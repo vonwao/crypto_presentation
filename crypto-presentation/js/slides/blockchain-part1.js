@@ -163,6 +163,103 @@ class BlockchainPart1Demo {
     }
 
     /**
+     * Creates HTML for a specific sub-slide
+     * @param {string} subSlideId - The sub-slide identifier
+     * @param {Array} sections - Array of section identifiers to include
+     * @returns {string} HTML string for the sub-slide
+     */
+    createSubSlideHTML(subSlideId, sections) {
+        const fullHTML = this.createSlideHTML();
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = fullHTML;
+        
+        const slideElement = tempDiv.querySelector('.slide');
+        slideElement.setAttribute('data-slide', subSlideId);
+        
+        // Update header based on sub-slide
+        this.updateSubSlideHeader(slideElement, subSlideId);
+        
+        // Filter content to show only specified sections
+        this.filterContentSections(slideElement, sections);
+        
+        return slideElement.outerHTML;
+    }
+
+    /**
+     * Updates the slide header for a specific sub-slide
+     */
+    updateSubSlideHeader(slideElement, subSlideId) {
+        const header = slideElement.querySelector('.slide-header');
+        if (!header) return;
+
+        const title = header.querySelector('h1');
+        const subtitle = header.querySelector('.subtitle');
+
+        switch (subSlideId) {
+            case 'blockchain-1-signing':
+                if (title) title.textContent = 'Blockchain: Transactions & Merkle Trees';
+                if (subtitle) subtitle.textContent = 'Steps 1-2: Sign transactions and build Merkle tree';
+                break;
+            case 'blockchain-1-hashing':
+                if (title) title.textContent = 'Blockchain: Block Hashing';
+                if (subtitle) subtitle.textContent = 'Step 3: Create unique block fingerprint';
+                break;
+            case 'blockchain-1-linking':
+                if (title) title.textContent = 'Blockchain: Chain Linking';
+                if (subtitle) subtitle.textContent = 'Step 4: Connect to create unbreakable chain';
+                break;
+        }
+    }
+
+    /**
+     * Filters content sections based on sub-slide requirements
+     */
+    filterContentSections(slideElement, sections) {
+        const content = slideElement.querySelector('.slide-content');
+        if (!content) return;
+
+        // Hide all construction steps initially
+        const allSteps = content.querySelectorAll('.construction-step');
+        allSteps.forEach(step => {
+            step.style.display = 'none';
+        });
+
+        // Show only specified sections
+        sections.forEach(sectionId => {
+            switch (sectionId) {
+                case 'step1':
+                    const step1 = content.querySelector('#step1');
+                    if (step1) step1.style.display = 'block';
+                    break;
+                case 'step2':
+                    const step2 = content.querySelector('#step2');
+                    if (step2) step2.style.display = 'block';
+                    break;
+                case 'step3':
+                    const step3 = content.querySelector('#step3');
+                    if (step3) step3.style.display = 'block';
+                    break;
+                case 'step4':
+                    const step4 = content.querySelector('#step4');
+                    if (step4) step4.style.display = 'block';
+                    break;
+                case 'construction-process':
+                    const constructionProcess = content.querySelector('.construction-process');
+                    if (constructionProcess) constructionProcess.style.display = 'block';
+                    break;
+                case 'hash-combination':
+                    const hashCombination = content.querySelector('.hash-combination');
+                    if (hashCombination) hashCombination.style.display = 'block';
+                    break;
+                case 'chain-connection':
+                    const chainConnection = content.querySelector('.chain-link-demo');
+                    if (chainConnection) chainConnection.style.display = 'block';
+                    break;
+            }
+        });
+    }
+
+    /**
      * Generates HTML for a single block (simplified version)
      */
     generateBlockHTML(block, index) {

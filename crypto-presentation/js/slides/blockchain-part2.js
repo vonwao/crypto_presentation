@@ -215,6 +215,91 @@ class BlockchainPart2Demo {
     }
 
     /**
+     * Creates HTML for a specific sub-slide
+     * @param {string} subSlideId - The sub-slide identifier
+     * @param {Array} sections - Array of section identifiers to include
+     * @returns {string} HTML string for the sub-slide
+     */
+    createSubSlideHTML(subSlideId, sections) {
+        const fullHTML = this.createSlideHTML();
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = fullHTML;
+        
+        const slideElement = tempDiv.querySelector('.slide');
+        slideElement.setAttribute('data-slide', subSlideId);
+        
+        // Update header based on sub-slide
+        this.updateSubSlideHeader(slideElement, subSlideId);
+        
+        // Filter content to show only specified sections
+        this.filterContentSections(slideElement, sections);
+        
+        return slideElement.outerHTML;
+    }
+
+    /**
+     * Updates the slide header for a specific sub-slide
+     */
+    updateSubSlideHeader(slideElement, subSlideId) {
+        const header = slideElement.querySelector('.slide-header');
+        if (!header) return;
+
+        const title = header.querySelector('h1');
+        const subtitle = header.querySelector('.subtitle');
+
+        switch (subSlideId) {
+            case 'blockchain-2-attacks':
+                if (title) title.textContent = 'Blockchain: Attack Simulations';
+                if (subtitle) subtitle.textContent = 'Watch attacks fail against mathematical security';
+                break;
+            case 'blockchain-2-security':
+                if (title) title.textContent = 'Blockchain: Security Guarantees';
+                if (subtitle) subtitle.textContent = 'Four pillars of unbreakable security';
+                break;
+            case 'blockchain-2-trust':
+                if (title) title.textContent = 'Blockchain: Revolutionary Trust Model';
+                if (subtitle) subtitle.textContent = 'Mathematical proof replaces central authority';
+                break;
+        }
+    }
+
+    /**
+     * Filters content sections based on sub-slide requirements
+     */
+    filterContentSections(slideElement, sections) {
+        const content = slideElement.querySelector('.slide-content');
+        if (!content) return;
+
+        // Hide all major sections initially
+        const allSections = content.querySelectorAll('.attack-simulation, .security-features, .trust-comparison');
+        allSections.forEach(section => {
+            section.style.display = 'none';
+        });
+
+        // Show only specified sections
+        sections.forEach(sectionId => {
+            switch (sectionId) {
+                case 'attack-simulation':
+                    const attackSimulation = content.querySelector('.attack-simulation');
+                    if (attackSimulation) attackSimulation.style.display = 'block';
+                    break;
+                case 'attack-scenario':
+                    const attackScenario = content.querySelector('.attack-scenario');
+                    if (attackScenario) attackScenario.style.display = 'block';
+                    break;
+                case 'security-features':
+                    const securityFeatures = content.querySelector('.security-features');
+                    if (securityFeatures) securityFeatures.style.display = 'block';
+                    break;
+                case 'trust-comparison':
+                    const trustComparison = content.querySelector('.trust-comparison');
+                    if (trustComparison) trustComparison.style.display = 'block';
+                    break;
+            }
+        });
+    }
+
+    /**
      * Activates the blockchain part 2 animations
      */
     activate() {

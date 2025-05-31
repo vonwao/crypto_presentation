@@ -136,6 +136,119 @@ class SignaturesPart2Demo {
     }
 
     /**
+     * Creates HTML for a specific sub-slide
+     * @param {string} subSlideId - The sub-slide identifier
+     * @param {Array} sections - Array of section identifiers to include
+     * @returns {string} HTML string for the sub-slide
+     */
+    createSubSlideHTML(subSlideId, sections) {
+        const fullHTML = this.createSlideHTML();
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = fullHTML;
+        
+        const slideElement = tempDiv.querySelector('.slide');
+        slideElement.setAttribute('data-slide', subSlideId);
+        
+        // Update header based on sub-slide
+        this.updateSubSlideHeader(slideElement, subSlideId);
+        
+        // Filter content to show only specified sections
+        this.filterContentSections(slideElement, sections);
+        
+        return slideElement.outerHTML;
+    }
+
+    /**
+     * Updates the slide header for a specific sub-slide
+     */
+    updateSubSlideHeader(slideElement, subSlideId) {
+        const header = slideElement.querySelector('.slide-header');
+        if (!header) return;
+
+        const title = header.querySelector('h1');
+        const subtitle = header.querySelector('.subtitle');
+
+        switch (subSlideId) {
+            case 'signatures-2-process':
+                if (title) title.textContent = 'Digital Signatures: The Signing Process';
+                if (subtitle) subtitle.textContent = 'Watch messages get cryptographically signed';
+                break;
+            case 'signatures-2-verification':
+                if (title) title.textContent = 'Digital Signatures: Verification & Results';
+                if (subtitle) subtitle.textContent = 'See how public keys verify authenticity';
+                break;
+            case 'signatures-2-benefits':
+                if (title) title.textContent = 'Why Digital Signatures Are Revolutionary';
+                if (subtitle) subtitle.textContent = 'Non-repudiation, integrity, and global verification';
+                break;
+        }
+    }
+
+    /**
+     * Filters content sections based on sub-slide requirements
+     */
+    filterContentSections(slideElement, sections) {
+        const content = slideElement.querySelector('.slide-content');
+        if (!content) return;
+
+        // Hide all sections initially
+        const allSections = content.querySelectorAll('.demo-process, .benefits-showcase');
+        allSections.forEach(section => {
+            section.style.display = 'none';
+        });
+
+        // Show only specified sections
+        sections.forEach(sectionId => {
+            switch (sectionId) {
+                case 'demo-process-steps-1-2':
+                    // Show only steps 1-2 of the demo process
+                    const demoProcess = content.querySelector('.demo-process');
+                    if (demoProcess) {
+                        demoProcess.style.display = 'block';
+                        // Hide steps 3-4
+                        const step3 = demoProcess.querySelector('#stepSignature');
+                        const step4 = demoProcess.querySelector('#stepVerification');
+                        if (step3) step3.style.display = 'none';
+                        if (step4) step4.style.display = 'none';
+                    }
+                    break;
+                case 'demo-process-steps-3-4':
+                    // Show only steps 3-4 of the demo process
+                    const demoProcess2 = content.querySelector('.demo-process');
+                    if (demoProcess2) {
+                        demoProcess2.style.display = 'block';
+                        // Hide steps 1-2
+                        const step1 = demoProcess2.querySelector('#stepMessage');
+                        const step2 = demoProcess2.querySelector('#stepSigning');
+                        if (step1) step1.style.display = 'none';
+                        if (step2) step2.style.display = 'none';
+                    }
+                    break;
+                case 'step-message':
+                    const stepMessage = content.querySelector('#stepMessage');
+                    if (stepMessage) stepMessage.style.display = 'block';
+                    break;
+                case 'step-signing':
+                    const stepSigning = content.querySelector('#stepSigning');
+                    if (stepSigning) stepSigning.style.display = 'block';
+                    break;
+                case 'step-signature':
+                    const stepSignature = content.querySelector('#stepSignature');
+                    if (stepSignature) stepSignature.style.display = 'block';
+                    break;
+                case 'step-verification':
+                    const stepVerification = content.querySelector('#stepVerification');
+                    if (stepVerification) stepVerification.style.display = 'block';
+                    break;
+                case 'benefits-showcase':
+                    const benefitsShowcase = content.querySelector('.benefits-showcase');
+                    if (benefitsShowcase) benefitsShowcase.style.display = 'block';
+                    break;
+            }
+        });
+    }
+
+    /**
      * Activates the signatures part 2 animations
      */
     activate() {

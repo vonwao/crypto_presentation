@@ -175,6 +175,95 @@ class MerklePart2Demo {
     }
 
     /**
+     * Creates HTML for a specific sub-slide
+     * @param {string} subSlideId - The sub-slide identifier
+     * @param {Array} sections - Array of section identifiers to include
+     * @returns {string} HTML string for the sub-slide
+     */
+    createSubSlideHTML(subSlideId, sections) {
+        const fullHTML = this.createSlideHTML();
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = fullHTML;
+        
+        const slideElement = tempDiv.querySelector('.slide');
+        slideElement.setAttribute('data-slide', subSlideId);
+        
+        // Update header based on sub-slide
+        this.updateSubSlideHeader(slideElement, subSlideId);
+        
+        // Filter content to show only specified sections
+        this.filterContentSections(slideElement, sections);
+        
+        return slideElement.outerHTML;
+    }
+
+    /**
+     * Updates the slide header for a specific sub-slide
+     */
+    updateSubSlideHeader(slideElement, subSlideId) {
+        const header = slideElement.querySelector('.slide-header');
+        if (!header) return;
+
+        const title = header.querySelector('h1');
+        const subtitle = header.querySelector('.subtitle');
+
+        switch (subSlideId) {
+            case 'merkle-2-proof':
+                if (title) title.textContent = 'Merkle Trees: Proof of Inclusion';
+                if (subtitle) subtitle.textContent = 'Verify transactions without downloading everything';
+                break;
+            case 'merkle-2-efficiency':
+                if (title) title.textContent = 'Merkle Trees: Efficiency Showcase';
+                if (subtitle) subtitle.textContent = '1 KB proof vs 500 GB full download';
+                break;
+            case 'merkle-2-security':
+                if (title) title.textContent = 'Merkle Trees: Tamper Detection';
+                if (subtitle) subtitle.textContent = 'Any change immediately breaks the tree';
+                break;
+        }
+    }
+
+    /**
+     * Filters content sections based on sub-slide requirements
+     */
+    filterContentSections(slideElement, sections) {
+        const content = slideElement.querySelector('.slide-content');
+        if (!content) return;
+
+        // Hide all major sections initially
+        const allSections = content.querySelectorAll('.proof-demo, .efficiency-showcase, .tamper-demo');
+        allSections.forEach(section => {
+            section.style.display = 'none';
+        });
+
+        // Show only specified sections
+        sections.forEach(sectionId => {
+            switch (sectionId) {
+                case 'proof-demo':
+                    const proofDemo = content.querySelector('.proof-demo');
+                    if (proofDemo) proofDemo.style.display = 'block';
+                    break;
+                case 'proof-process':
+                    const proofProcess = content.querySelector('.proof-process');
+                    if (proofProcess) proofProcess.style.display = 'block';
+                    break;
+                case 'efficiency-showcase':
+                    const efficiencyShowcase = content.querySelector('.efficiency-showcase');
+                    if (efficiencyShowcase) efficiencyShowcase.style.display = 'block';
+                    break;
+                case 'tamper-demo':
+                    const tamperDemo = content.querySelector('.tamper-demo');
+                    if (tamperDemo) tamperDemo.style.display = 'block';
+                    break;
+                case 'tamper-visualization':
+                    const tamperVisualization = content.querySelector('.tamper-visualization');
+                    if (tamperVisualization) tamperVisualization.style.display = 'block';
+                    break;
+            }
+        });
+    }
+
+    /**
      * Activates the merkle part 2 animations
      */
     activate() {
