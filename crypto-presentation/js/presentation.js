@@ -11,145 +11,158 @@ class Presentation {
         this.navIndicator = null;
         this.performanceMonitor = new AnimationPerformanceMonitor();
         
-        // Slide definitions
-        // Replace the slideDefinitions array in your presentation.js with this:
-
-// Updated slideDefinitions array for presentation.js
-// Replace the existing slideDefinitions in your presentation.js constructor with this:
-
-this.slideDefinitions = [
-    {
-        id: 'intro',
-        title: 'Crypto Fundamentals',
-        subtitle: 'Understanding the Building Blocks of Blockchain',
-        animationClass: 'IntroAnimations'
-    },
-    {
-        id: 'hash',
-        title: 'Hash Functions: The Digital Blender',
-        subtitle: 'Any input → Always the same size output',
-        animationClass: 'HashDemo'
-    },
-    {
-        id: 'signatures-part1',
-        title: 'Digital Signatures Part 1: The Concept',
-        subtitle: 'Your cryptographic DNA for proving authenticity',
-        animationClass: 'SignaturesPart1Demo'
-    },
-    {
-        id: 'signatures-part2',
-        title: 'Digital Signatures Part 2: Security & Verification',
-        subtitle: 'Why digital beats physical signatures every time',
-        animationClass: 'SignaturesPart2Demo'
-    },
-    {
-        id: 'merkle-part1',
-        title: 'Merkle Trees Part 1: Tree Construction',
-        subtitle: 'Building efficient data structures from the ground up',
-        animationClass: 'MerklePart1Demo'
-    },
-    {
-        id: 'merkle-part2',
-        title: 'Merkle Trees Part 2: Verification & Security',
-        subtitle: 'Proving inclusion and detecting tampering',
-        animationClass: 'MerklePart2Demo'
-    },
-    {
-        id: 'blockchain-part1',
-        title: 'Building a Blockchain Part 1: Assembly',
-        subtitle: 'Watch how our three concepts create an unbreakable chain',
-        animationClass: 'BlockchainPart1Demo'
-    },
-    {
-        id: 'blockchain-part2',
-        title: 'Building a Blockchain Part 2: Security Guarantees',
-        subtitle: 'Mathematical guarantees without central authority',
-        animationClass: 'BlockchainPart2Demo'
+        // Sub-slide support
+        this.flattenedSlides = [];
+        this.currentFlatIndex = 0;
+        this.totalFlatSlides = 0;
+        
+        // Enhanced slide definitions with sub-slide support
+        this.slideDefinitions = [
+            {
+                id: 'intro',
+                title: 'Crypto Fundamentals',
+                subtitle: 'Understanding the Building Blocks of Blockchain',
+                animationClass: 'IntroAnimations'
+                // No subSlides - remains single slide
+            },
+            {
+                id: 'hash',
+                title: 'Hash Functions',
+                animationClass: 'HashDemo',
+                subSlides: [
+                    {
+                        id: 'hash-demo',
+                        title: 'Hash Functions: The Digital Blender',
+                        subtitle: 'Any input → Always the same size output',
+                        sections: ['demo-section']
+                    },
+                    {
+                        id: 'hash-avalanche',
+                        title: 'Hash Functions: Avalanche Effect',
+                        subtitle: 'Tiny changes create massive differences',
+                        sections: ['avalanche-section']
+                    }
+                ]
+            },
+            {
+                id: 'signatures-part1',
+                title: 'Digital Signatures Part 1',
+                animationClass: 'SignaturesPart1Demo',
+                subSlides: [
+                    {
+                        id: 'signatures-1-keys',
+                        title: 'Digital Signatures: The Two-Key System',
+                        subtitle: 'Private signs, public verifies',
+                        sections: ['key-system-demo']
+                    },
+                    {
+                        id: 'signatures-1-analogy',
+                        title: 'Digital vs Traditional Signatures',
+                        subtitle: 'Why digital beats physical every time',
+                        sections: ['analogy-section']
+                    },
+                    {
+                        id: 'signatures-1-security',
+                        title: 'Mathematical Security Guarantee',
+                        subtitle: 'Impossible to forge, easy to verify',
+                        sections: ['security-guarantee']
+                    }
+                ]
+            },
+            {
+                id: 'signatures-part2',
+                title: 'Digital Signatures Part 2: Security & Verification',
+                subtitle: 'Why digital beats physical signatures every time',
+                animationClass: 'SignaturesPart2Demo'
+                // TODO: Add subSlides after examining the file
+            },
+            {
+                id: 'merkle-part1',
+                title: 'Merkle Trees Part 1',
+                animationClass: 'MerklePart1Demo',
+                subSlides: [
+                    {
+                        id: 'merkle-1-problem',
+                        title: 'Merkle Trees: The Problem',
+                        subtitle: 'How to verify one transaction out of millions?',
+                        sections: ['concept-explanation']
+                    },
+                    {
+                        id: 'merkle-1-construction',
+                        title: 'Merkle Trees: Building the Tree',
+                        subtitle: 'Efficient organization from the ground up',
+                        sections: ['tree-builder']
+                    },
+                    {
+                        id: 'merkle-1-steps',
+                        title: 'Merkle Trees: How It Works',
+                        subtitle: 'Step by step construction process',
+                        sections: ['step-explanation']
+                    }
+                ]
+            },
+            {
+                id: 'merkle-part2',
+                title: 'Merkle Trees Part 2: Verification & Security',
+                subtitle: 'Proving inclusion and detecting tampering',
+                animationClass: 'MerklePart2Demo'
+                // TODO: Add subSlides after examining the file
+            },
+            {
+                id: 'blockchain-part1',
+                title: 'Building a Blockchain Part 1: Assembly',
+                subtitle: 'Watch how our three concepts create an unbreakable chain',
+                animationClass: 'BlockchainPart1Demo'
+                // TODO: Add subSlides after examining the file
+            },
+            {
+                id: 'blockchain-part2',
+                title: 'Building a Blockchain Part 2: Security Guarantees',
+                subtitle: 'Mathematical guarantees without central authority',
+                animationClass: 'BlockchainPart2Demo'
+                // TODO: Add subSlides after examining the file
+            }
+        ];
+        
+        // Flatten slide definitions for navigation
+        this.flattenSlideDefinitions();
     }
-];
-
-// Also update the corresponding script tags in index.html:
-/*
-
-*/
-
-// Update the intro slide's concept cards to match the new structure:
-// In generateIntroSlide method, update the concept cards:
-
-// generateIntroSlide(slideDef) {
-//     return `
-//         <div class="slide ${slideDef.id === 'intro' ? 'active' : ''}" data-slide="${slideDef.id}">
-//             <div class="slide-header">
-//                 <h1>${slideDef.title}</h1>
-//                 <p class="subtitle">${slideDef.subtitle}</p>
-//             </div>
-            
-//             <div class="slide-content">
-//                 <div class="intro-grid">
-//                     <div class="concept-card" data-concept="hash">
-//                         <span class="concept-icon">🌪️</span>
-//                         <h3>Hash Functions</h3>
-//                         <p>The digital blender that creates unique fingerprints</p>
-//                     </div>
-                    
-//                     <div class="concept-card" data-concept="signatures">
-//                         <span class="concept-icon">🔐</span>
-//                         <h3>Digital Signatures</h3>
-//                         <p>Your cryptographic DNA - concept and security</p>
-//                         <div class="concept-parts">
-//                             <span class="part-indicator">Part 1: Concept</span>
-//                             <span class="part-indicator">Part 2: Security</span>
-//                         </div>
-//                     </div>
-                    
-//                     <div class="concept-card" data-concept="merkle">
-//                         <span class="concept-icon">🌳</span>
-//                         <h3>Merkle Trees</h3>
-//                         <p>Efficient verification without downloading everything</p>
-//                         <div class="concept-parts">
-//                             <span class="part-indicator">Part 1: Construction</span>
-//                             <span class="part-indicator">Part 2: Verification</span>
-//                         </div>
-//                     </div>
-                    
-//                     <div class="concept-card" data-concept="blockchain">
-//                         <span class="concept-icon">⛓️</span>
-//                         <h3>Blockchain</h3>
-//                         <p>How it all comes together securely</p>
-//                         <div class="concept-parts">
-//                             <span class="part-indicator">Part 1: Assembly</span>
-//                             <span class="part-indicator">Part 2: Security</span>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-            
-//             <div class="slide-footer">
-//                 <div class="key-points">
-//                     <div class="key-point">
-//                         <span class="bullet">🎯</span>
-//                         <span>Simple visual explanations of complex concepts</span>
-//                     </div>
-//                     <div class="key-point">
-//                         <span class="bullet">🔍</span>
-//                         <span>See how each piece builds on the others</span>
-//                     </div>
-//                     <div class="key-point">
-//                         <span class="bullet">📚</span>
-//                         <span>Deep dive into each topic with multi-part lessons</span>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     `;
-// }
-
-// Add CSS for the new concept parts styling to styles/slides.css:
-/*
-
-*/
-
-}
+    
+    /**
+     * Flattens slide definitions into a navigable sequence
+     */
+    flattenSlideDefinitions() {
+        this.flattenedSlides = [];
+        
+        this.slideDefinitions.forEach((slide, slideIndex) => {
+            if (slide.subSlides && slide.subSlides.length > 0) {
+                // Add each sub-slide
+                slide.subSlides.forEach((subSlide, subIndex) => {
+                    this.flattenedSlides.push({
+                        ...subSlide,
+                        parentSlide: slide,
+                        parentIndex: slideIndex,
+                        subSlideIndex: subIndex,
+                        isSubSlide: true,
+                        flatIndex: this.flattenedSlides.length
+                    });
+                });
+            } else {
+                // Add regular slide
+                this.flattenedSlides.push({
+                    ...slide,
+                    parentSlide: null,
+                    parentIndex: slideIndex,
+                    subSlideIndex: 0,
+                    isSubSlide: false,
+                    flatIndex: this.flattenedSlides.length
+                });
+            }
+        });
+        
+        this.totalFlatSlides = this.flattenedSlides.length;
+        PresentationUtils.debug(`Flattened ${this.slideDefinitions.length} slides into ${this.totalFlatSlides} navigable slides`);
+    }
     /**
      * Initializes the presentation
      */
@@ -160,6 +173,7 @@ this.slideDefinitions = [
             
             // Log available slide definitions
             console.log('Slide definitions:', this.slideDefinitions);
+            console.log('Flattened slides:', this.flattenedSlides);
             
             this.slidesContainer = document.getElementById('slides-container');
             this.navIndicator = document.getElementById('navIndicator');
@@ -212,9 +226,10 @@ this.slideDefinitions = [
     async generateSlides() {
         this.slidesContainer.innerHTML = '';
         
-        for (let i = 0; i < this.slideDefinitions.length; i++) {
-            const slideDef = this.slideDefinitions[i];
-            const slideHTML = await this.generateSlideHTML(slideDef, i);
+        // Generate HTML for each flattened slide
+        for (let i = 0; i < this.flattenedSlides.length; i++) {
+            const flatSlide = this.flattenedSlides[i];
+            const slideHTML = await this.generateSlideHTML(flatSlide, i);
             this.slidesContainer.innerHTML += slideHTML;
         }
         
@@ -230,49 +245,80 @@ this.slideDefinitions = [
     }
 
     /**
-     * Generates HTML for a single slide
-     * @param {Object} slideDef - Slide definition
-     * @param {number} index - Slide index
+     * Generates HTML for a single slide (regular or sub-slide)
+     * @param {Object} flatSlide - Flattened slide definition
+     * @param {number} index - Slide index in flattened array
      * @returns {string} - HTML string
      */
-    async generateSlideHTML(slideDef, index) {
-        console.log(`Generating slide HTML for: ${slideDef.id} (index: ${index})`);
+    async generateSlideHTML(flatSlide, index) {
+        console.log(`Generating slide HTML for: ${flatSlide.id} (index: ${index})`);
         
-        // Check if slide class has custom HTML generator
-        const SlideClass = window.slideClasses?.[slideDef.id];
-        console.log(`Slide class for ${slideDef.id}:`, SlideClass ? 'Found' : 'Not found');
+        // For sub-slides, check if parent slide class has sub-slide HTML generator
+        if (flatSlide.isSubSlide && flatSlide.parentSlide) {
+            const parentSlideClass = window.slideClasses?.[flatSlide.parentSlide.id];
+            console.log(`Parent slide class for ${flatSlide.parentSlide.id}:`, parentSlideClass ? 'Found' : 'Not found');
+            
+            if (parentSlideClass && typeof parentSlideClass.prototype.createSubSlideHTML === 'function') {
+                console.log(`Using custom sub-slide HTML generator for ${flatSlide.id}`);
+                try {
+                    const instance = new parentSlideClass();
+                    return instance.createSubSlideHTML(flatSlide.id, flatSlide.sections);
+                } catch (error) {
+                    console.error(`Error creating sub-slide HTML for ${flatSlide.id}:`, error);
+                    // Fall back to placeholder
+                    return this.generatePlaceholderSlide(flatSlide);
+                }
+            }
+            
+            // Fall back to generating sub-slide from parent class's full HTML
+            if (parentSlideClass && typeof parentSlideClass.prototype.createSlideHTML === 'function') {
+                console.log(`Extracting sub-slide from parent HTML for ${flatSlide.id}`);
+                try {
+                    const instance = new parentSlideClass();
+                    const fullHTML = instance.createSlideHTML();
+                    return this.extractSubSlideFromHTML(fullHTML, flatSlide);
+                } catch (error) {
+                    console.error(`Error extracting sub-slide HTML for ${flatSlide.id}:`, error);
+                    return this.generatePlaceholderSlide(flatSlide);
+                }
+            }
+        }
+        
+        // For regular slides, use existing logic
+        const slideId = flatSlide.isSubSlide ? flatSlide.parentSlide.id : flatSlide.id;
+        const SlideClass = window.slideClasses?.[slideId];
+        console.log(`Slide class for ${slideId}:`, SlideClass ? 'Found' : 'Not found');
         
         if (SlideClass && typeof SlideClass.prototype.createSlideHTML === 'function') {
-            console.log(`Using custom HTML generator for ${slideDef.id}`);
+            console.log(`Using custom HTML generator for ${slideId}`);
             try {
                 const instance = new SlideClass();
                 return instance.createSlideHTML();
             } catch (error) {
-                console.error(`Error creating slide HTML for ${slideDef.id}:`, error);
-                // Fall back to default template
-                return this.generatePlaceholderSlide(slideDef);
+                console.error(`Error creating slide HTML for ${slideId}:`, error);
+                return this.generatePlaceholderSlide(flatSlide);
             }
         }
         
         // Default slide templates
-        console.log(`Using default template for ${slideDef.id}`);
-        switch (slideDef.id) {
+        console.log(`Using default template for ${flatSlide.id}`);
+        switch (flatSlide.id) {
             case 'intro':
-                return this.generateIntroSlide(slideDef);
-            case 'hash':
-                return this.generateHashSlide(slideDef);
-            case 'signatures-part1':
-            case 'signatures-part2':
-                return this.generateSignaturesSlide(slideDef);
-            case 'merkle-part1':
-            case 'merkle-part2':
-            case 'blockchain-part1':
-            case 'blockchain-part2':
-                console.log(`Using placeholder for ${slideDef.id}`);
-                return this.generatePlaceholderSlide(slideDef);
+                return this.generateIntroSlide(flatSlide);
+            case 'hash-demo':
+            case 'hash-avalanche':
+                return this.generateHashSubSlide(flatSlide);
+            case 'signatures-1-keys':
+            case 'signatures-1-analogy':
+            case 'signatures-1-security':
+                return this.generateSignaturesSubSlide(flatSlide);
+            case 'merkle-1-problem':
+            case 'merkle-1-construction':
+            case 'merkle-1-steps':
+                return this.generateMerkleSubSlide(flatSlide);
             default:
-                console.warn(`No template found for slide: ${slideDef.id}, using placeholder`);
-                return this.generatePlaceholderSlide(slideDef);
+                console.warn(`No template found for slide: ${flatSlide.id}, using placeholder`);
+                return this.generatePlaceholderSlide(flatSlide);
         }
     }
 
@@ -420,6 +466,171 @@ this.slideDefinitions = [
     }
 
     /**
+     * Extracts a sub-slide from parent slide's full HTML
+     * @param {string} fullHTML - Full HTML from parent slide
+     * @param {Object} flatSlide - Sub-slide definition
+     * @returns {string} - Sub-slide HTML
+     */
+    extractSubSlideFromHTML(fullHTML, flatSlide) {
+        // Create a temporary DOM element to parse the HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = fullHTML;
+        
+        // Find the slide element
+        const slideElement = tempDiv.querySelector('.slide');
+        if (!slideElement) {
+            return this.generatePlaceholderSlide(flatSlide);
+        }
+        
+        // Update slide attributes
+        slideElement.setAttribute('data-slide', flatSlide.id);
+        
+        // Update header
+        const header = slideElement.querySelector('.slide-header');
+        if (header) {
+            const title = header.querySelector('h1');
+            const subtitle = header.querySelector('.subtitle');
+            if (title) title.textContent = flatSlide.title;
+            if (subtitle) subtitle.textContent = flatSlide.subtitle;
+        }
+        
+        // Extract only the specified sections
+        const content = slideElement.querySelector('.slide-content');
+        if (content && flatSlide.sections) {
+            // Hide all sections first
+            const allSections = content.querySelectorAll('[class*="section"], [class*="demo"], [class*="explanation"]');
+            allSections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show only the sections for this sub-slide
+            flatSlide.sections.forEach(sectionClass => {
+                const section = content.querySelector(`.${sectionClass}`);
+                if (section) {
+                    section.style.display = '';
+                }
+            });
+        }
+        
+        return slideElement.outerHTML;
+    }
+    
+    /**
+     * Generates hash sub-slide HTML
+     * @param {Object} flatSlide - Sub-slide definition
+     * @returns {string} - HTML string
+     */
+    generateHashSubSlide(flatSlide) {
+        const isDemo = flatSlide.id === 'hash-demo';
+        const isAvalanche = flatSlide.id === 'hash-avalanche';
+        
+        return `
+            <div class="slide" data-slide="${flatSlide.id}">
+                <div class="slide-header">
+                    <h1>${flatSlide.title}</h1>
+                    <p class="subtitle">${flatSlide.subtitle}</p>
+                </div>
+                
+                <div class="slide-content">
+                    ${isDemo ? `
+                        <div class="demo-section">
+                            <div class="input-display">
+                                <span class="input-label">Input</span>
+                                <div class="input-value" id="inputValue">Hello</div>
+                            </div>
+
+                            <div class="blender" id="blender">
+                                <div class="blender-inner">🌪️</div>
+                                <div class="particle-container" id="particleContainer"></div>
+                            </div>
+
+                            <div class="output-display">
+                                <span class="output-label">Hash Output</span>
+                                <div class="hash-value" id="hashValue">2cf24dba4f21d4288094e19b482f7c1b7ae07d12e4b31...</div>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${isAvalanche ? `
+                        <div class="avalanche-section">
+                            <h3 class="section-title">The Avalanche Effect</h3>
+                            <div class="comparison-grid">
+                                <div class="comparison-item">
+                                    <div class="comparison-input">
+                                        <strong>Input:</strong> "<span id="beforeInput">Hello</span>"
+                                    </div>
+                                    <div class="comparison-output">
+                                        <code id="beforeHash">2cf24dba4f21d4288094e19b482f7c1b</code>
+                                    </div>
+                                </div>
+                                
+                                <div class="comparison-arrow">→</div>
+                                
+                                <div class="comparison-item">
+                                    <div class="comparison-input">
+                                        <strong>Input:</strong> "<span id="afterInput">Hello!</span>"
+                                    </div>
+                                    <div class="comparison-output">
+                                        <code id="afterHash" class="highlight-change">334d016f755cd6dc58c53a86e183882f</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+
+                <div class="slide-footer">
+                    <div class="key-points">
+                        ${isDemo ? `
+                            <div class="key-point">
+                                <span class="bullet">🌪️</span>
+                                <span><strong>Blending:</strong> Any input becomes a fixed-size hash</span>
+                            </div>
+                            <div class="key-point">
+                                <span class="bullet">🔄</span>
+                                <span><strong>Deterministic:</strong> Same input always gives same output</span>
+                            </div>
+                        ` : `
+                            <div class="key-point">
+                                <span class="bullet">⚡</span>
+                                <span><strong>Immutability:</strong> Any change completely alters the hash</span>
+                            </div>
+                            <div class="key-point">
+                                <span class="bullet">🔗</span>
+                                <span><strong>Linking:</strong> Each block references the previous block's hash</span>
+                            </div>
+                            <div class="key-point">
+                                <span class="bullet">✓</span>
+                                <span><strong>Verification:</strong> Instantly detect any data tampering</span>
+                            </div>
+                        `}
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    /**
+     * Generates signatures sub-slide HTML
+     * @param {Object} flatSlide - Sub-slide definition
+     * @returns {string} - HTML string
+     */
+    generateSignaturesSubSlide(flatSlide) {
+        // For now, return placeholder - will be implemented when we update the signatures slide class
+        return this.generatePlaceholderSlide(flatSlide);
+    }
+    
+    /**
+     * Generates merkle sub-slide HTML
+     * @param {Object} flatSlide - Sub-slide definition
+     * @returns {string} - HTML string
+     */
+    generateMerkleSubSlide(flatSlide) {
+        // For now, return placeholder - will be implemented when we update the merkle slide class
+        return this.generatePlaceholderSlide(flatSlide);
+    }
+
+    /**
      * Generates placeholder slide HTML
      */
     generatePlaceholderSlide(slideDef) {
@@ -451,12 +662,20 @@ this.slideDefinitions = [
         
         this.navIndicator.innerHTML = '';
         
-        this.slideDefinitions.forEach((slide, index) => {
+        this.flattenedSlides.forEach((flatSlide, index) => {
             const dot = document.createElement('div');
             dot.className = `nav-dot ${index === 0 ? 'active' : ''}`;
-            dot.dataset.slide = slide.id;
+            
+            // Add sub-slide indicator if this is a sub-slide
+            if (flatSlide.isSubSlide) {
+                dot.classList.add('sub-slide-dot');
+                dot.dataset.parentSlide = flatSlide.parentSlide.id;
+                dot.dataset.subSlideIndex = flatSlide.subSlideIndex;
+            }
+            
+            dot.dataset.slide = flatSlide.id;
             dot.dataset.index = index;
-            dot.title = slide.title;
+            dot.title = flatSlide.title;
             this.navIndicator.appendChild(dot);
         });
     }
@@ -465,6 +684,7 @@ this.slideDefinitions = [
      * Initializes slide animation controllers
      */
     initializeSlideAnimations() {
+        // Initialize animations for parent slides (not sub-slides)
         this.slideDefinitions.forEach(slideDef => {
             const SlideClass = window.slideClasses?.[slideDef.id];
             if (SlideClass) {
@@ -472,6 +692,20 @@ this.slideDefinitions = [
             } else {
                 // Create default animation controller
                 this.slideAnimations[slideDef.id] = this.createDefaultAnimation(slideDef.id);
+            }
+        });
+        
+        // Also create animation controllers for individual sub-slides if needed
+        this.flattenedSlides.forEach(flatSlide => {
+            if (flatSlide.isSubSlide) {
+                // Sub-slides can share the parent's animation controller
+                // or have their own if specifically defined
+                const parentAnimationId = flatSlide.parentSlide.id;
+                if (this.slideAnimations[parentAnimationId]) {
+                    this.slideAnimations[flatSlide.id] = this.slideAnimations[parentAnimationId];
+                } else {
+                    this.slideAnimations[flatSlide.id] = this.createDefaultAnimation(flatSlide.id);
+                }
             }
         });
     }
@@ -557,9 +791,9 @@ this.slideDefinitions = [
     handleInitialHash() {
         const hash = window.location.hash.slice(1);
         if (hash) {
-            const slideIndex = this.slideDefinitions.findIndex(slide => slide.id === hash);
-            if (slideIndex !== -1) {
-                this.currentSlide = slideIndex;
+            const flatIndex = this.flattenedSlides.findIndex(slide => slide.id === hash);
+            if (flatIndex !== -1) {
+                this.currentSlide = flatIndex;
             }
         }
     }
@@ -587,9 +821,9 @@ this.slideDefinitions = [
      * @param {number} index - Target slide index
      */
     async goToSlide(index) {
-        if (index === this.currentSlide || 
-            index < 0 || 
-            index >= this.totalSlides || 
+        if (index === this.currentSlide ||
+            index < 0 ||
+            index >= this.totalSlides ||
             this.isTransitioning) {
             return;
         }
@@ -597,7 +831,8 @@ this.slideDefinitions = [
         this.isTransitioning = true;
         
         try {
-            PresentationUtils.debug(`Transitioning to slide ${index} (${this.slideDefinitions[index].id})`);
+            const flatSlide = this.flattenedSlides[index];
+            PresentationUtils.debug(`Transitioning to slide ${index} (${flatSlide.id})`);
 
             // Deactivate current slide
             await this.deactivateSlide(this.currentSlide);
@@ -660,7 +895,8 @@ this.slideDefinitions = [
      * @param {number} index - Slide index
      */
     updateURL(index) {
-        const slideId = this.slideDefinitions[index].id;
+        const flatSlide = this.flattenedSlides[index];
+        const slideId = flatSlide.id;
         const newURL = `${window.location.pathname}#${slideId}`;
         window.history.replaceState(null, null, newURL);
     }
@@ -670,7 +906,8 @@ this.slideDefinitions = [
      * @param {number} index - Slide index
      */
     async activateSlide(index) {
-        const slideId = this.slideDefinitions[index].id;
+        const flatSlide = this.flattenedSlides[index];
+        const slideId = flatSlide.id;
         const animation = this.slideAnimations[slideId];
         
         if (animation && typeof animation.activate === 'function') {
@@ -688,7 +925,8 @@ this.slideDefinitions = [
      * @param {number} index - Slide index
      */
     async deactivateSlide(index) {
-        const slideId = this.slideDefinitions[index].id;
+        const flatSlide = this.flattenedSlides[index];
+        const slideId = flatSlide.id;
         const animation = this.slideAnimations[slideId];
         
         if (animation && typeof animation.deactivate === 'function') {
@@ -706,10 +944,10 @@ this.slideDefinitions = [
      */
     handleHashChange() {
         const hash = window.location.hash.slice(1);
-        const slideIndex = this.slideDefinitions.findIndex(slide => slide.id === hash);
+        const flatIndex = this.flattenedSlides.findIndex(slide => slide.id === hash);
         
-        if (slideIndex !== -1 && slideIndex !== this.currentSlide) {
-            this.goToSlide(slideIndex);
+        if (flatIndex !== -1 && flatIndex !== this.currentSlide) {
+            this.goToSlide(flatIndex);
         }
     }
 
@@ -718,13 +956,16 @@ this.slideDefinitions = [
      * @returns {Object} - Status information
      */
     getStatus() {
-        const currentSlideDef = this.slideDefinitions[this.currentSlide];
+        const currentFlatSlide = this.flattenedSlides[this.currentSlide];
         
         return {
             currentSlide: this.currentSlide,
             totalSlides: this.totalSlides,
-            currentSlideId: currentSlideDef?.id || null,
-            currentSlideTitle: currentSlideDef?.title || null,
+            currentSlideId: currentFlatSlide?.id || null,
+            currentSlideTitle: currentFlatSlide?.title || null,
+            isSubSlide: currentFlatSlide?.isSubSlide || false,
+            parentSlide: currentFlatSlide?.parentSlide?.id || null,
+            subSlideIndex: currentFlatSlide?.subSlideIndex || 0,
             isTransitioning: this.isTransitioning,
             performance: this.performanceMonitor.getStats()
         };

@@ -154,6 +154,23 @@ body {
     background: var(--primary-gold);
 }
 
+/* Sub-slide navigation dots */
+.nav-dot.sub-slide-dot {
+    width: 8px;
+    height: 8px;
+    margin: 0 2px;
+    opacity: 0.7;
+}
+
+.nav-dot.sub-slide-dot.active {
+    opacity: 1;
+    transform: scale(1.3);
+}
+
+.nav-dot.sub-slide-dot:hover {
+    opacity: 1;
+}
+
 .nav-controls {
     position: fixed;
     bottom: 2rem;
