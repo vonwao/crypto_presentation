@@ -226,18 +226,25 @@ class BlockchainPart2Demo {
             switch (sectionId) {
                 case 'tampering-demo':
                     const tamperingDemo = content.querySelector('.tampering-demo');
-                    if (tamperingDemo) tamperingDemo.style.display = 'block';
+                    if (tamperingDemo) {
+                        tamperingDemo.style.display = 'block';
+                    }
                     break;
                 case 'benefits-demo':
                     const benefitsDemo = content.querySelector('.benefits-demo');
-                    if (benefitsDemo) benefitsDemo.style.display = 'block';
+                    if (benefitsDemo) {
+                        benefitsDemo.style.display = 'block';
+                    }
                     break;
                 case 'trust-demo':
                     const trustDemo = content.querySelector('.trust-demo');
-                    if (trustDemo) trustDemo.style.display = 'block';
+                    if (trustDemo) {
+                        trustDemo.style.display = 'block';
+                    }
                     break;
             }
         });
+        
     }
 
     /**
