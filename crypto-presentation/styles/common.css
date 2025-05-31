@@ -13,15 +13,21 @@
     --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-border: rgba(255, 255, 255, 0.1);
     
-    /* Presentation sizing - optimized for projectors */
+    /* Presentation sizing - IMPROVED for better readability */
     --slide-width: 1920px;
     --slide-height: 1080px;
     --content-padding: 4rem;
-    --font-size-xl: 3.5rem;
-    --font-size-lg: 2.5rem;
-    --font-size-md: 1.8rem;
-    --font-size-sm: 1.4rem;
-    --font-size-xs: 1.2rem;
+    
+    /* LARGER font sizes for better presentation readability */
+    --font-size-xl: 4rem;        /* Was 3.5rem - titles */
+    --font-size-lg: 2.8rem;     /* Was 2.5rem - section headers */
+    --font-size-md: 2rem;       /* Was 1.8rem - body text */
+    --font-size-sm: 1.6rem;     /* Was 1.4rem - small text */
+    --font-size-xs: 1.3rem;     /* Was 1.2rem - tiny text */
+    
+    /* Add minimum sizes for ultra-small text */
+    --font-size-code: 1.4rem;   /* For code blocks */
+    --font-size-label: 1.2rem;  /* For labels */
     
     /* Animation timing */
     --transition-fast: 0.3s ease;
@@ -91,13 +97,14 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.1;  /* Tighter line height for big text */
 }
 
 .subtitle {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-md);  /* Larger subtitles */
     color: var(--text-secondary);
     font-weight: 300;
+    line-height: 1.3;
 }
 
 .slide-content {
@@ -199,10 +206,30 @@ body {
     border-color: var(--primary-blue);
 }
 
+.key-point span:last-child {
+    font-size: var(--font-size-sm);  /* Larger key point text */
+    line-height: 1.4;
+}
+
 .bullet {
     font-size: 1.5rem;
     color: var(--primary-gold);
     flex-shrink: 0;
+}
+
+/* Better code block sizing */
+code, .hash-value, .signature-example {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-code) !important;  /* Larger code */
+    line-height: 1.4;
+}
+
+/* Better label sizing */
+.input-label, .output-label, .node-label {
+    font-size: var(--font-size-label) !important;  /* Larger labels */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Shared animation keyframes */
@@ -298,23 +325,25 @@ body {
     animation: bounce 1s ease-in-out;
 }
 
-/* Responsive adjustments */
+/* Responsive adjustments - ALSO IMPROVED */
 @media (max-width: 1600px) {
     :root {
-        --font-size-xl: 3rem;
-        --font-size-lg: 2.2rem;
-        --font-size-md: 1.6rem;
-        --font-size-sm: 1.2rem;
+        --font-size-xl: 3.5rem;     /* Was 3rem */
+        --font-size-lg: 2.5rem;     /* Was 2.2rem */
+        --font-size-md: 1.8rem;     /* Was 1.6rem */
+        --font-size-sm: 1.4rem;     /* Was 1.2rem */
+        --font-size-xs: 1.2rem;     /* Was 1.1rem */
         --content-padding: 3rem;
     }
 }
 
 @media (max-width: 1200px) {
     :root {
-        --font-size-xl: 2.5rem;
-        --font-size-lg: 1.8rem;
-        --font-size-md: 1.4rem;
-        --font-size-sm: 1.1rem;
+        --font-size-xl: 3rem;       /* Was 2.5rem */
+        --font-size-lg: 2.2rem;     /* Was 1.8rem */
+        --font-size-md: 1.6rem;     /* Was 1.4rem */
+        --font-size-sm: 1.3rem;     /* Was 1.1rem */
+        --font-size-xs: 1.1rem;     /* Keep minimum readable */
         --content-padding: 2rem;
     }
     
@@ -329,10 +358,11 @@ body {
 
 @media (max-width: 768px) {
     :root {
-        --font-size-xl: 2rem;
-        --font-size-lg: 1.5rem;
-        --font-size-md: 1.2rem;
-        --font-size-sm: 1rem;
+        --font-size-xl: 2.5rem;     /* Was 2rem */
+        --font-size-lg: 1.8rem;     /* Was 1.5rem */
+        --font-size-md: 1.4rem;     /* Was 1.2rem */
+        --font-size-sm: 1.2rem;     /* Was 1rem */
+        --font-size-xs: 1rem;       /* Keep readable */
         --content-padding: 1.5rem;
     }
 }
