@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Fundamentals - Interactive Presentation</title>
+    <style>
+        /* styles/common.css */
+        :root {
+            --primary-blue: #00d4ff;
+            --primary-gold: #ffd700;
+            --success-green: #00ff88;
+            --alert-red: #ff4757;
+            --bg-dark: #0f0f23;
+            --bg-secondary: #1a1a3e;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.8);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            
+            /* Presentation sizing */
+            --slide-width: 1920px;
+            --slide-height: 1080px;
+            --content-padding: 4rem;
+            --font-size-xl: 3.5rem;
+            --font-size-lg: 2.5rem;
+            --font-size-md: 1.8rem;
+            --font-size-sm: 1.4rem;
+            --font-size-xs: 1.2rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-secondary) 100%);
+            color: var(--text-primary);
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .slide {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            padding: var(--content-padding);
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
+        }
+
+        .slide.prev {
+            transform: translateX(-100px);
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            z-index: 10;
+        }
+
+        .slide-header h1 {
+            font-size: var(--font-size-xl);
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary-blue), var(--primary-gold));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: var(--font-size-md);
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 3rem;
+        }
+
+        .slide-footer {
+            margin-top: auto;
+            padding-top: 2rem;
+        }
+
+        /* Navigation */
+        .nav-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+            background: var(--glass-bg);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-secondary);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-dot.active {
+            background: var(--primary-blue);
+            transform: scale(1.2);
+        }
+
+        .nav-controls {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 1000;
+            color: var(--text-secondary);
+            font-size: var(--font-size-xs);
+        }
+
+        /* Common components */
+        .glass-container {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: var(--font-size-lg);
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+        }
+
+        .key-points {
+            display: flex;
+            justify-content: space-around;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .key-point {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .bullet {
+            font-size: 1.5rem;
+            color: var(--primary-gold);
+        }
+
+        /* Animation keyframes */
+        @keyframes spin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); }
+            50% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.8), 0 0 80px rgba(0, 212, 255, 0.4); }
+        }
+
+        @keyframes fadeInScale {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes particleFlow {
+            0% { 
+                opacity: 1; 
+                transform: translateX(-120px) translateY(0px) scale(1);
+            }
+            30% { 
+                opacity: 1; 
+                transform: translateX(-40px) translateY(-30px) scale(1.3);
+            }
+            70% { 
+                opacity: 1; 
+                transform: translateX(40px) translateY(-30px) scale(1.3);
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateX(120px) translateY(0px) scale(0.8);
+            }
+        }
+
+        @keyframes rippleExpand {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 400px;
+                height: 400px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes highlight {
+            0%, 100% { background-color: transparent; }
+            50% { background-color: rgba(255, 71, 87, 0.2); }
+        }
+
+        /* Slide-specific styles */
+        
+        /* Intro slide */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+
+        .concept-card {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .concept-card.highlight {
+            border-color: var(--primary-blue);
+            transform: scale(1.05);
+        }
+
+        .concept-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        /* Hash demo styles */
+        .demo-section {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 4rem;
+            align-items: center;
+            justify-items: center;
+        }
+
+        .input-display, .output-display {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary-blue);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .output-display {
+            border-color: var(--success-green);
+        }
+
+        .input-label, .output-label {
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .input-value {
+            font-size: var(--font-size-lg);
+            font-weight: bold;
+            padding: 1rem 2rem;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid var(--primary-blue);
+        }
+
+        .hash-value {
+            font-family: 'Courier New', monospace;
+            font-size: var(--font-size-sm);
+            word-break: break-all;
+            padding: 1rem;
+            background: rgba(0, 255, 136, 0.1);
+            border-radius: 15px;
+            border: 1px solid var(--success-green);
+            text-align: center;
+        }
+
+        .blender {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, var(--primary-gold), #ffed4e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .blender.processing {
+            animation: spin 3s ease-in-out, pulse 3s ease-in-out;
+        }
+
+        .blender-inner {
+            width: 180px;
+            height: 180px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .particle-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .data-particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-blue);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .avalanche-section {
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .comparison-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .comparison-input {
+            font-size: var(--font-size-md);
+            margin-bottom: 1.5rem;
+        }
+
+        .comparison-output {
+            font-family: 'Courier New', monospace;
+            font-size: var(--font-size-sm);
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            word-break: break-all;
+        }
+
+        .comparison-arrow {
+            font-size: 3rem;
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
+
+        .highlight-change {
+            animation: highlight 2s infinite;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1600px) {
+            :root {
+                --font-size-xl: 3rem;
+                --font-size-lg: 2.2rem;
+                --font-size-md: 1.6rem;
+                --font-size-sm: 1.2rem;
+                --content-padding: 3rem;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            :root {
+                --font-size-xl: 2.5rem;
+                --font-size-lg: 1.8rem;
+                --font-size-md: 1.4rem;
+                --font-size-sm: 1.1rem;
+                --content-padding: 2rem;
+            }
+            
+            .intro-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .demo-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .key-points {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        
+        <!-- Slide 1: Introduction -->
+        <div class="slide active" data-slide="intro">
+            <div class="slide-header">
+                <h1>Crypto Fundamentals</h1>
+                <p class="subtitle">Understanding the Building Blocks of Blockchain</p>
+            </div>
+            
+            <div class="slide-content">
+                <div class="intro-grid">
+                    <div class="concept-card" data-concept="hash">
+                        <span class="concept-icon">🌪️</span>
+                        <h3>Hash Functions</h3>
+                        <p>The digital blender that creates unique fingerprints</p>
+                    </div>
+                    
+                    <div class="concept-card" data-concept="signatures">
+                        <span class="concept-icon">🔐</span>
+                        <h3>Digital Signatures</h3>
+                        <p>Your cryptographic DNA for proving authenticity</p>
+                    </div>
+                    
+                    <div class="concept-card" data-concept="merkle">
+                        <span class="concept-icon">🌳</span>
+                        <h3>Merkle Trees</h3>
+                        <p>Efficient verification without downloading everything</p>
+                    </div>
+                    
+                    <div class="concept-card" data-concept="blockchain">
+                        <span class="concept-icon">⛓️</span>
+                        <h3>Blockchain</h3>
+                        <p>How it all comes together securely</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide-footer">
+                <div class="key-points">
+                    <div class="key-point">
+                        <span class="bullet">🎯</span>
+                        <span>Simple visual explanations of complex concepts</span>
+                    </div>
+                    <div class="key-point">
+                        <span class="bullet">🔍</span>
+                        <span>See how each piece builds on the others</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Hash Functions -->
+        <div class="slide" data-slide="hash">
+            <div class="slide-header">
+                <h1>Hash Functions: The Digital Blender</h1>
+                <p class="subtitle">Any input → Always the same size output</p>
+            </div>
+            
+            <div class="slide-content">
+                <div class="demo-section">
+                    <div class="input-display">
+                        <span class="input-label">Input</span>
+                        <div class="input-value" id="inputValue">Hello</div>
+                    </div>
+
+                    <div class="blender" id="blender">
+                        <div class="blender-inner">🌪️</div>
+                        <div class="particle-container" id="particleContainer"></div>
+                    </div>
+
+                    <div class="output-display">
+                        <span class="output-label">Hash Output</span>
+                        <div class="hash-value" id="hashValue">2cf24dba4f21d4288094e19b482f7c1b7ae07d12e4b31...</div>
+                    </div>
+                </div>
+
+                <div class="avalanche-section">
+                    <h3 class="section-title">The Avalanche Effect</h3>
+                    <div class="comparison-grid">
+                        <div class="comparison-item">
+                            <div class="comparison-input">
+                                <strong>Input:</strong> "<span id="beforeInput">Hello</span>"
+                            </div>
+                            <div class="comparison-output">
+                                <code id="beforeHash">2cf24dba4f21d4288094e19b482f7c1b</code>
+                            </div>
+                        </div>
+                        
+                        <div class="comparison-arrow">→</div>
+                        
+                        <div class="comparison-item">
+                            <div class="comparison-input">
+                                <strong>Input:</strong> "<span id="afterInput">Hello!</span>"
+                            </div>
+                            <div class="comparison-output">
+                                <code id="afterHash" class="highlight-change">334d016f755cd6dc58c53a86e183882f</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide-footer">
+                <div class="key-points">
+                    <div class="key-point">
+                        <span class="bullet">⚡</span>
+                        <span><strong>Immutability:</strong> Any change completely alters the hash</span>
+                    </div>
+                    <div class="key-point">
+                        <span class="bullet">🔗</span>
+                        <span><strong>Linking:</strong> Each block references the previous block's hash</span>
+                    </div>
+                    <div class="key-point">
+                        <span class="bullet">✓</span>
+                        <span><strong>Verification:</strong> Instantly detect any data tampering</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Digital Signatures (placeholder) -->
+        <div class="slide" data-slide="signatures">
+            <div class="slide-header">
+                <h1>Digital Signatures: Your Cryptographic DNA</h1>
+                <p class="subtitle">Proving authenticity without revealing secrets</p>
+            </div>
+            
+            <div class="slide-content">
+                <div class="glass-container" style="text-align: center; padding: 4rem;">
+                    <div style="font-size: 6rem; margin-bottom: 2rem;">🔐</div>
+                    <h2>Coming Next: Digital Signatures Demo</h2>
+                    <p style="font-size: var(--font-size-md); margin-top: 2rem; color: var(--text-secondary);">
+                        Two-key cryptography: sign with private key, verify with public key
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Merkle Trees (placeholder) -->
+        <div class="slide" data-slide="merkle">
+            <div class="slide-header">
+                <h1>Merkle Trees: The Efficient Detective</h1>
+                <p class="subtitle">Verify data integrity without downloading everything</p>
+            </div>
+            
+            <div class="slide-content">
+                <div class="glass-container" style="text-align: center; padding: 4rem;">
+                    <div style="font-size: 6rem; margin-bottom: 2rem;">🌳</div>
+                    <h2>Coming Next: Merkle Tree Demo</h2>
+                    <p style="font-size: var(--font-size-md); margin-top: 2rem; color: var(--text-secondary);">
+                        Hash pairs upward to create tamper-proof verification
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Integration (placeholder) -->
+        <div class="slide" data-slide="integration">
+            <div class="slide-header">
+                <h1>Putting It All Together</h1>
+                <p class="subtitle">How hash functions, signatures, and Merkle trees create blockchain</p>
+            </div>
+            
+            <div class="slide-content">
+                <div class="glass-container" style="text-align: center; padding: 4rem;">
+                    <div style="font-size: 6rem; margin-bottom: 2rem;">⛓️</div>
+                    <h2>The Complete Picture</h2>
+                    <p style="font-size: var(--font-size-md); margin-top: 2rem; color: var(--text-secondary);">
+                        See how all concepts work together in a living blockchain
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-indicator">
+        <div class="nav-dot active" data-slide="intro"></div>
+        <div class="nav-dot" data-slide="hash"></div>
+        <div class="nav-dot" data-slide="signatures"></div>
+        <div class="nav-dot" data-slide="merkle"></div>
+        <div class="nav-dot" data-slide="integration"></div>
+    </div>
+
+    <div class="nav-controls">
+        <span>Use ← → arrow keys or spacebar to navigate</span>
+    </div>
+
+    <script>
+        // Presentation utilities
+        class PresentationUtils {
+            static createRipple(element, color = 'var(--primary-blue)') {
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.border = `2px solid ${color}`;
+                ripple.style.borderRadius = '50%';
+                ripple.style.opacity = '0';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.left = '50%';
+                ripple.style.top = '50%';
+                ripple.style.transform = 'translate(-50%, -50%)';
+                ripple.style.animation = 'rippleExpand 1.5s ease-out';
+                
+                element.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 1500);
+            }
+
+            static createParticles(container, count = 8, duration = 2500) {
+                for (let i = 0; i < count; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'data-particle';
+                    particle.style.animationDelay = (i * 0.15) + 's';
+                    particle.style.animation = `particleFlow ${duration}ms ease-out forwards`;
+                    particle.style.transform = `translate(-50%, -50%) rotate(${i * (360/count)}deg) translateX(-60px)`;
+                    
+                    container.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.remove();
+                    }, duration);
+                }
+            }
+
+            static simpleHash(str) {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    const char = str.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;
+                }
+                const hex = Math.abs(hash).toString(16);
+                return hex.padStart(32, '0').substring(0, 32);
+            }
+
+            static formatHash(hash) {
+                return hash + '...';
+            }
+        }
+
+        // Animation controller for slide-specific animations
+        class AnimationController {
+            constructor(interval = 7000) {
+                this.interval = interval;
+                this.callbacks = [];
+                this.isRunning = false;
+                this.timer = null;
+            }
+
+            addCallback(callback) {
+                this.callbacks.push(callback);
+            }
+
+            start() {
+                if (this.isRunning) return;
+                this.isRunning = true;
+                
+                // Run immediately first time
+                this.runCallbacks();
+                
+                // Then repeat at intervals
+                this.timer = setInterval(() => {
+                    this.runCallbacks();
+                }, this.interval);
+            }
+
+            stop() {
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
+                this.isRunning = false;
+            }
+
+            runCallbacks() {
+                this.callbacks.forEach(callback => {
+                    try {
+                        callback();
+                    } catch (error) {
+                        console.error('Animation callback error:', error);
+                    }
+                });
+            }
+        }
+
+        // Hash demo functionality
+        class HashDemo {
+            constructor() {
+                this.inputs = ['Hello', 'Hello!', 'Blockchain', 'Bitcoin', 'Crypto', 'Hash123'];
+                this.currentIndex = 0;
+                this.elements = this.initElements();
+                this.animationController = new AnimationController(6000);
+                this.isActive = false;
+            }
+
+            initElements() {
+                return {
+                    inputValue: document.getElementById('inputValue'),
+                    hashValue: document.getElementById('hashValue'),
+                    blender: document.getElementById('blender'),
+                    particleContainer: document.getElementById('particleContainer'),
+                    beforeInput: document.getElementById('beforeInput'),
+                    afterInput: document.getElementById('afterInput'),
+                    beforeHash: document.getElementById('beforeHash'),
+                    afterHash: document.getElementById('afterHash')
+                };
+            }
+
+            activate() {
+                if (this.isActive) return;
+                this.isActive = true;
+                this.animationController.addCallback(() => this.runHashAnimation());
+                this.animationController.start();
+                this.updateDisplay();
+            }
+
+            deactivate() {
+                if (!this.isActive) return;
+                this.isActive = false;
+                this.animationController.stop();
+            }
+
+            runHashAnimation() {
+                if (!this.isActive) return;
+                
+                this.currentIndex = (this.currentIndex + 1) % this.inputs.length;
+                const currentInput = this.inputs[this.currentIndex];
+                
+                this.elements.inputValue.textContent = currentInput;
+                this.elements.blender.classList.add('processing');
+                
+                PresentationUtils.createParticles(this.elements.particleContainer, 10, 2500);
+                PresentationUtils.createRipple(this.elements.blender, 'var(--primary-gold)');
+                
+                setTimeout(() => {
+                    if (!this.isActive) return;
+                    
+                    const hash = PresentationUtils.simpleHash(currentInput);
+                    this.elements.hashValue.textContent = PresentationUtils.formatHash(hash);
+                    this.updateComparison(currentInput, hash);
+                    
+                    setTimeout(() => {
+                        this.elements.blender.classList.remove('processing');
+                    }, 1000);
+                    
+                }, 2000);
+            }
+
+            updateComparison(input, hash) {
+                const modifiedInput = input + '!';
+                const modifiedHash = PresentationUtils.simpleHash(modifiedInput);
+                
+                this.elements.beforeInput.textContent = input;
+                this.elements.afterInput.innerHTML = input + '<span style="color: var(--alert-red); font-weight: bold;">!</span>';
+                this.elements.beforeHash.textContent = hash;
+                this.elements.afterHash.textContent = modifiedHash;
+            }
+
+            updateDisplay() {
+                const currentInput = this.inputs[this.currentIndex];
+                const hash = PresentationUtils.simpleHash(currentInput);
+                
+                this.elements.inputValue.textContent = currentInput;
+                this.elements.hashValue.textContent = PresentationUtils.formatHash(hash);
+                this.updateComparison(currentInput, hash);
+            }
+        }
+
+        // Intro slide animations
+        class IntroAnimations {
+            constructor() {
+                this.cards = document.querySelectorAll('.concept-card');
+                this.currentIndex = 0;
+                this.animationController = new AnimationController(3000);
+                this.isActive = false;
+            }
+
+            activate() {
+                if (this.isActive) return;
+                this.isActive = true;
+                this.animationController.addCallback(() => this.highlightNext());
+                this.animationController.start();
+            }
+
+            deactivate() {
+                if (!this.isActive) return;
+                this.isActive = false;
+                this.animationController.stop();
+                this.cards.forEach(card => card.classList.remove('highlight'));
+            }
+
+            highlightNext() {
+                if (!this.isActive) return;
+                
+                this.cards.forEach(card => card.classList.remove('highlight'));
+                this.cards[this.currentIndex].classList.add('highlight');
+                this.currentIndex = (this.currentIndex + 1) % this.cards.length;
+            }
+        }
+
+        // Main presentation controller
+        class Presentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.navDots = document.querySelectorAll('.nav-dot');
+                this.currentSlide = 0;
+                this.totalSlides = this.slides.length;
+                
+                this.slideAnimations = {
+                    intro: new IntroAnimations(),
+                    hash: new HashDemo()
+                };
+                
+                this.init();
+            }
+
+            init() {
+                this.setupNavigation();
+                this.setupKeyboard();
+                this.activateSlide(0);
+            }
+
+            setupNavigation() {
+                this.navDots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => this.goToSlide(index));
+                });
+            }
+
+            setupKeyboard() {
+                document.addEventListener('keydown', (e) => {
+                    switch(e.key) {
+                        case 'ArrowRight':
+                        case ' ':
+                        case 'PageDown':
+                            e.preventDefault();
+                            this.nextSlide();
+                            break;
+                        case 'ArrowLeft':
+                        case 'PageUp':
+                            e.preventDefault();
+                            this.prevSlide();
+                            break;
+                        case 'Home':
+                            e.preventDefault();
+                            this.goToSlide(0);
+                            break;
+                        case 'End':
+                            e.preventDefault();
+                            this.goToSlide(this.totalSlides - 1);
+                            break;
+                        case 'Escape':
+                            e.preventDefault();
+                            this.goToSlide(0);
+                            break;
+                    }
+                });
+            }
+
+            nextSlide() {
+                if (this.currentSlide < this.totalSlides - 1) {
+                    this.goToSlide(this.currentSlide + 1);
+                }
+            }
+
+            prevSlide() {
+                if (this.currentSlide > 0) {
+                    this.goToSlide(this.currentSlide - 1);
+                }
+            }
+
+            goToSlide(index) {
+                if (index === this.currentSlide || index < 0 || index >= this.totalSlides) {
+                    return;
+                }
+
+                // Deactivate current slide animations
+                this.deactivateCurrentSlide();
+
+                // Update slide classes
+                this.slides.forEach((slide, i) => {
+                    slide.classList.remove('active', 'prev');
+                    if (i === index) {
+                        slide.classList.add('active');
+                    } else if (i < index) {
+                        slide.classList.add('prev');
+                    }
+                });
+
+                // Update navigation dots
+                this.navDots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+
+                // Update URL hash
+                const slideId = this.slides[index].dataset.slide;
+                window.history.replaceState(null, null, `#${slideId}`);
+
+                this.currentSlide = index;
+                this.activateCurrentSlide();
+            }
+
+            activateCurrentSlide() {
+                const slideId = this.slides[this.currentSlide].dataset.slide;
+                if (this.slideAnimations[slideId]) {
+                    this.slideAnimations[slideId].activate();
+                }
+            }
+
+            deactivateCurrentSlide() {
+                const slideId = this.slides[this.currentSlide].dataset.slide;
+                if (this.slideAnimations[slideId]) {
+                    this.slideAnimations[slideId].deactivate();
+                }
+            }
+
+            // Handle browser back/forward buttons
+            handleHashChange() {
+                const hash = window.location.hash.slice(1);
+                const slideIndex = Array.from(this.slides).findIndex(slide => slide.dataset.slide === hash);
+                if (slideIndex !== -1) {
+                    this.goToSlide(slideIndex);
+                }
+            }
+        }
+
+        // Initialize presentation when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            const presentation = new Presentation();
+            
+            // Handle hash changes for browser navigation
+            window.addEventListener('hashchange', () => {
+                presentation.handleHashChange();
+            });
+
+            // Set initial slide based on URL hash
+            const initialHash = window.location.hash.slice(1);
+            if (initialHash) {
+                const slideIndex = Array.from(document.querySelectorAll('.slide')).findIndex(slide => slide.dataset.slide === initialHash);
+                if (slideIndex !== -1) {
+                    presentation.goToSlide(slideIndex);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
