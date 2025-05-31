@@ -505,3 +505,339 @@
         align-items: center;
     }
 }
+
+/* Additional Hash Demo Styles - Add these to styles/slides.css if not present */
+
+/* Enhanced input/output displays */
+.input-display.input-changing {
+    animation: glow 1s ease-out;
+    border-color: var(--primary-gold);
+}
+
+.output-display.hash-updating {
+    animation: glow 1s ease-out;
+    border-color: var(--primary-gold);
+}
+
+/* Enhanced blender animations */
+.blender.processing {
+    animation: spin 3s ease-in-out, pulse 3s ease-in-out;
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+}
+
+.blender-inner {
+    transition: all 0.3s ease;
+}
+
+.blender.processing .blender-inner {
+    background: rgba(0, 0, 0, 0.4);
+    transform: scale(0.9);
+}
+
+/* Particle system enhancements */
+.data-particle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--primary-blue);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 8px var(--primary-blue);
+}
+
+/* Enhanced comparison section */
+.avalanche-section {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 3rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    position: relative;
+    overflow: hidden;
+}
+
+.comparison-item {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.comparison-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-blue);
+}
+
+/* Enhanced hash output styling */
+.hash-value {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    word-break: break-all;
+    padding: 1rem;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 15px;
+    border: 1px solid var(--success-green);
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.hash-value::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--success-green), var(--primary-blue));
+    border-radius: 15px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.output-display.hash-updating .hash-value::before {
+    opacity: 0.3;
+}
+
+/* Input value enhancements */
+.input-value {
+    font-size: var(--font-size-lg);
+    font-weight: bold;
+    padding: 1rem 2rem;
+    background: rgba(0, 212, 255, 0.1);
+    border-radius: 15px;
+    border: 1px solid var(--primary-blue);
+    transition: all 0.3s ease;
+    position: relative;
+    min-width: 200px;
+}
+
+.input-value::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--primary-blue), var(--primary-gold));
+    border-radius: 15px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.input-display.input-changing .input-value::before {
+    opacity: 0.3;
+}
+
+/* Avalanche effect highlighting */
+.highlight-change {
+    animation: highlight 2s infinite;
+    position: relative;
+}
+
+.highlight-change::after {
+    content: '⚠️ Changed!';
+    position: absolute;
+    top: -25px;
+    right: -10px;
+    font-size: 0.8rem;
+    color: var(--alert-red);
+    background: rgba(255, 71, 87, 0.2);
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    animation: bounce 2s infinite;
+}
+
+/* Enhanced comparison arrows */
+.comparison-arrow {
+    font-size: 3rem;
+    color: var(--primary-gold);
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    animation: arrowPulse 3s infinite;
+}
+
+@keyframes arrowPulse {
+    0%, 100% { 
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    50% { 
+        transform: scale(1.1);
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+}
+
+/* Section title enhancements */
+.section-title {
+    font-size: var(--font-size-lg);
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-blue);
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-blue), transparent);
+}
+
+/* Input and output labels */
+.input-label, .output-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* Particle container positioning */
+.particle-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Enhanced demo section layout */
+.demo-section {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 4rem;
+    align-items: center;
+    justify-items: center;
+    margin-bottom: 2rem;
+}
+
+/* Blender container positioning */
+.blender {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(45deg, var(--primary-gold), #ffed4e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.5s ease;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+/* Additional animation keyframes */
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+/* Responsive adjustments for hash demo */
+@media (max-width: 1200px) {
+    .demo-section {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .comparison-arrow {
+        transform: rotate(90deg);
+        margin: 1rem 0;
+    }
+    
+    .blender {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .blender-inner {
+        width: 150px;
+        height: 150px;
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .input-display, .output-display {
+        max-width: 300px;
+        min-height: 150px;
+        padding: 1.5rem;
+    }
+    
+    .blender {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .blender-inner {
+        width: 130px;
+        height: 130px;
+        font-size: 2.5rem;
+    }
+    
+    .avalanche-section {
+        padding: 2rem;
+    }
+    
+    .comparison-grid {
+        gap: 2rem;
+    }
+}
+
+/* Loading states */
+.hash-demo-loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.hash-demo-loading::after {
+    content: 'Loading...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--glass-bg);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    color: var(--text-primary);
+    z-index: 1000;
+}
+
+/* Focus states for accessibility */
+.input-display:focus-within,
+.output-display:focus-within {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+    .blender,
+    .particle-container,
+    .data-particle {
+        display: none !important;
+    }
+    
+    .demo-section {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+}

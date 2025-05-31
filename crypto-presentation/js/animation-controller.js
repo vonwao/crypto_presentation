@@ -307,3 +307,182 @@ class AnimationStateManager {
      * @param {string} stateName - Target state name
      */
     transitionTo(stateName) {
+        if (!this.states.has(stateName)) {
+            console.error(`State '${stateName}' not defined`);
+            return;
+        }
+
+        const newState = this.states.get(stateName);
+        
+        // Exit current state
+        if (this.currentState) {
+            try {
+                this.currentState.exit();
+            } catch (error) {
+                console.error(`Error exiting state '${this.currentState.name}':`, error);
+            }
+        }
+
+        this.previousState = this.currentState;
+        this.currentState = newState;
+
+        // Notify listeners
+        this.notifyListeners('stateChange', {
+            from: this.previousState?.name || null,
+            to: this.currentState.name
+        });
+
+        // Enter new state
+        try {
+            this.currentState.enter();
+        } catch (error) {
+            console.error(`Error entering state '${this.currentState.name}':`, error);
+        }
+
+        PresentationUtils.debug(`State transition: ${this.previousState?.name || 'null'} -> ${this.currentState.name}`);
+    }
+
+    /**
+     * Gets the current state name
+     * @returns {string|null} - Current state name
+     */
+    getCurrentState() {
+        return this.currentState?.name || null;
+    }
+
+    /**
+     * Adds a state change listener
+     * @param {Function} listener - Listener function
+     */
+    addListener(listener) {
+        this.listeners.push(listener);
+    }
+
+    /**
+     * Removes a state change listener
+     * @param {Function} listener - Listener function to remove
+     */
+    removeListener(listener) {
+        this.listeners = this.listeners.filter(l => l !== listener);
+    }
+
+    /**
+     * Notifies all listeners of an event
+     * @param {string} event - Event name
+     * @param {Object} data - Event data
+     */
+    notifyListeners(event, data) {
+        this.listeners.forEach(listener => {
+            try {
+                listener(event, data);
+            } catch (error) {
+                console.error('Listener error:', error);
+            }
+        });
+    }
+
+    /**
+     * Updates the current state
+     * @param {number} deltaTime - Time since last update
+     */
+    update(deltaTime) {
+        if (this.currentState && this.currentState.update) {
+            try {
+                this.currentState.update(deltaTime);
+            } catch (error) {
+                console.error(`Error updating state '${this.currentState.name}':`, error);
+            }
+        }
+    }
+}
+
+// Performance monitor for animations
+class AnimationPerformanceMonitor {
+    constructor() {
+        this.frameCount = 0;
+        this.lastTime = 0;
+        this.fps = 0;
+        this.isMonitoring = false;
+        this.fpsHistory = [];
+        this.maxHistoryLength = 60; // Keep 60 fps readings
+    }
+
+    /**
+     * Starts monitoring animation performance
+     */
+    start() {
+        if (this.isMonitoring) return;
+        
+        this.isMonitoring = true;
+        this.lastTime = performance.now();
+        this.frameCount = 0;
+        this.measureFPS();
+        
+        PresentationUtils.debug('Animation performance monitoring started');
+    }
+
+    /**
+     * Stops monitoring animation performance
+     */
+    stop() {
+        this.isMonitoring = false;
+        PresentationUtils.debug('Animation performance monitoring stopped');
+    }
+
+    /**
+     * Measures FPS
+     */
+    measureFPS() {
+        if (!this.isMonitoring) return;
+
+        const currentTime = performance.now();
+        this.frameCount++;
+
+        if (currentTime - this.lastTime >= 1000) {
+            this.fps = Math.round((this.frameCount * 1000) / (currentTime - this.lastTime));
+            this.fpsHistory.push(this.fps);
+            
+            // Keep history within limits
+            if (this.fpsHistory.length > this.maxHistoryLength) {
+                this.fpsHistory.shift();
+            }
+
+            // Log performance warnings
+            if (this.fps < 30) {
+                console.warn(`Low FPS detected: ${this.fps}`);
+            }
+
+            this.frameCount = 0;
+            this.lastTime = currentTime;
+        }
+
+        requestAnimationFrame(() => this.measureFPS());
+    }
+
+    /**
+     * Gets current performance stats
+     * @returns {Object} - Performance statistics
+     */
+    getStats() {
+        const avgFPS = this.fpsHistory.length > 0 ? 
+            Math.round(this.fpsHistory.reduce((a, b) => a + b, 0) / this.fpsHistory.length) : 0;
+        
+        const minFPS = this.fpsHistory.length > 0 ? Math.min(...this.fpsHistory) : 0;
+        const maxFPS = this.fpsHistory.length > 0 ? Math.max(...this.fpsHistory) : 0;
+
+        return {
+            currentFPS: this.fps,
+            averageFPS: avgFPS,
+            minFPS,
+            maxFPS,
+            isMonitoring: this.isMonitoring,
+            sampleCount: this.fpsHistory.length
+        };
+    }
+}
+
+// Export classes to global scope
+window.AnimationController = AnimationController;
+window.AdvancedAnimationController = AdvancedAnimationController;
+window.AnimationStateManager = AnimationStateManager;
+window.AnimationPerformanceMonitor = AnimationPerformanceMonitor;
