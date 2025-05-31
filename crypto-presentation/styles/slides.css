@@ -1358,3 +1358,966 @@
     }
 }
     
+/* Additional CSS for Blockchain Parts - Add these to styles/slides.css */
+
+/* ==== BLOCKCHAIN PART 1 SLIDE ==== */
+.blockchain-builder {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    height: 100%;
+}
+
+.blockchain-chain {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    overflow-x: auto;
+}
+
+.blockchain-block {
+    background: var(--glass-bg);
+    border: 2px solid var(--primary-blue);
+    border-radius: 15px;
+    padding: 1.5rem;
+    min-width: 200px;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.blockchain-block.processing {
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    animation: blockProcessing 2s ease-in-out;
+}
+
+.blockchain-block.linked {
+    border-color: var(--success-green);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+}
+
+.block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.block-title {
+    font-size: var(--font-size-md);
+    font-weight: bold;
+    color: var(--primary-blue);
+}
+
+.block-timestamp {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+}
+
+.block-hash-display {
+    margin-bottom: 1rem;
+}
+
+.hash-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.block-hash {
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 212, 255, 0.1);
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    border: 1px solid var(--primary-blue);
+    color: var(--primary-blue);
+    font-weight: bold;
+}
+
+.block-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.summary-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+}
+
+.summary-value {
+    font-weight: bold;
+    color: var(--success-green);
+}
+
+.summary-hash {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: var(--success-green);
+}
+
+/* Construction Process */
+.construction-process {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.process-title {
+    font-size: var(--font-size-lg);
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-blue);
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.construction-step {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.construction-step.active {
+    border-color: var(--primary-gold);
+    background: rgba(255, 215, 0, 0.1);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    transform: scale(1.02);
+}
+
+.step-number {
+    background: var(--primary-blue);
+    color: white;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: var(--font-size-md);
+    margin-bottom: 1rem;
+}
+
+.construction-step.active .step-number {
+    background: var(--primary-gold);
+    animation: pulse 2s infinite;
+}
+
+.step-title {
+    font-size: var(--font-size-md);
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.step-description {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.step-visual {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px solid var(--glass-border);
+}
+
+/* Step-specific visuals */
+.signature-demo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tx-item {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--primary-blue);
+    border-radius: 6px;
+    padding: 0.5rem;
+    font-family: 'Courier New', monospace;
+}
+
+.sign-arrow {
+    font-size: 1.2rem;
+    color: var(--primary-gold);
+    font-weight: bold;
+}
+
+.signature-result {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid var(--success-green);
+    border-radius: 6px;
+    padding: 0.5rem;
+    color: var(--success-green);
+    font-weight: bold;
+}
+
+.mini-merkle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.merkle-root {
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid var(--primary-gold);
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    font-family: 'Courier New', monospace;
+}
+
+.merkle-branches {
+    display: flex;
+    gap: 1rem;
+}
+
+.branch {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--primary-blue);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.7rem;
+    font-family: 'Courier New', monospace;
+}
+
+.merkle-leaves {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.leaf {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid var(--success-green);
+    border-radius: 6px;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.7rem;
+    font-family: 'Courier New', monospace;
+}
+
+.hash-combination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.hash-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hash-part {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--primary-blue);
+    border-radius: 6px;
+    padding: 0.4rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+}
+
+.plus {
+    color: var(--primary-gold);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.hash-arrow {
+    font-size: 1.5rem;
+    color: var(--primary-gold);
+    font-weight: bold;
+}
+
+.hash-result {
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid var(--primary-gold);
+    border-radius: 6px;
+    padding: 0.4rem;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--primary-gold);
+}
+
+.chain-link-demo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    position: relative;
+}
+
+.prev-block, .current-block {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--primary-blue);
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    min-width: 60px;
+    text-align: center;
+}
+
+.current-block {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: var(--primary-gold);
+    color: var(--primary-gold);
+    font-weight: bold;
+}
+
+.link-arrow {
+    font-size: 1.2rem;
+    color: var(--success-green);
+    font-weight: bold;
+}
+
+.link-line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: transparent;
+    border-radius: 1px;
+}
+
+/* ==== BLOCKCHAIN PART 2 SLIDE ==== */
+.security-demonstration {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    height: 100%;
+}
+
+.demo-title {
+    font-size: var(--font-size-lg);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary-blue);
+}
+
+/* Attack Simulation */
+.attack-simulation {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.attack-scenario {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid var(--glass-border);
+}
+
+.scenario-description {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.attacker-icon {
+    font-size: 2rem;
+    color: var(--alert-red);
+}
+
+.attack-name {
+    font-size: var(--font-size-md);
+    font-weight: bold;
+    color: var(--alert-red);
+    margin-bottom: 0.5rem;
+}
+
+.attack-description {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.attack-visualization {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.blockchain-mini {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mini-block {
+    background: var(--glass-bg);
+    border: 2px solid var(--primary-blue);
+    border-radius: 10px;
+    padding: 1rem;
+    min-width: 150px;
+    transition: all 0.3s ease;
+}
+
+.mini-block.attack-target {
+    border-color: var(--alert-red);
+    background: rgba(255, 71, 87, 0.1);
+    animation: tamperShake 0.5s infinite;
+}
+
+.mini-block.chain-broken {
+    border-color: var(--alert-red);
+    background: rgba(255, 71, 87, 0.1);
+}
+
+.mini-block.fake-block {
+    border-color: var(--alert-red);
+    background: rgba(255, 71, 87, 0.2);
+    border-style: dashed;
+}
+
+.block-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.mini-block .block-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.transaction {
+    font-size: 0.9rem;
+    padding: 0.3rem;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 4px;
+    text-align: center;
+}
+
+.mini-block .block-hash {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    background: rgba(0, 212, 255, 0.1);
+    padding: 0.3rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.prev-hash-ref {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.chain-arrow {
+    font-size: 1.5rem;
+    color: var(--primary-gold);
+    font-weight: bold;
+}
+
+.attack-result {
+    background: rgba(0, 255, 136, 0.1);
+    border: 2px solid var(--success-green);
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.result-icon {
+    font-size: 2rem;
+}
+
+.result-message {
+    font-size: var(--font-size-md);
+    font-weight: bold;
+}
+
+/* Security Features */
+.security-features {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.security-feature {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.security-feature.active {
+    border-color: var(--success-green);
+    background: rgba(0, 255, 136, 0.1);
+    transform: scale(1.02);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+}
+
+.feature-content {
+    flex: 1;
+}
+
+.feature-title {
+    font-size: var(--font-size-md);
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.feature-description {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.feature-status {
+    flex-shrink: 0;
+}
+
+.status-indicator {
+    background: var(--success-green);
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Trust Comparison */
+.trust-comparison {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.trust-model {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid var(--glass-border);
+}
+
+.model-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    justify-content: center;
+}
+
+.model-icon {
+    font-size: 2rem;
+}
+
+.trust-flow {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.trust-node {
+    background: rgba(255, 215, 0, 0.1);
+    border: 2px solid var(--primary-gold);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.node-label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.node-description {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.trust-participants {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.participant {
+    background: rgba(0, 212, 255, 0.1);
+    border: 1px solid var(--primary-blue);
+    border-radius: 6px;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    text-align: center;
+    min-width: 60px;
+}
+
+.trust-network {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.network-node {
+    background: rgba(0, 212, 255, 0.1);
+    border: 2px solid var(--primary-blue);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin: 0 auto;
+}
+
+.math-guarantee {
+    background: rgba(255, 215, 0, 0.1);
+    border: 2px solid var(--primary-gold);
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.guarantee-icon {
+    font-size: 1.5rem;
+}
+
+.guarantee-text {
+    font-weight: bold;
+}
+
+.model-issues, .model-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.issue, .benefit {
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    transition: all 0.3s ease;
+}
+
+.issue {
+    background: rgba(255, 71, 87, 0.1);
+    border-left: 3px solid var(--alert-red);
+}
+
+.benefit {
+    background: rgba(0, 255, 136, 0.1);
+    border-left: 3px solid var(--success-green);
+}
+
+/* Animations */
+@keyframes blockProcessing {
+    0% {
+        transform: scale(1);
+        border-color: var(--primary-blue);
+    }
+    50% {
+        transform: scale(1.05);
+        border-color: var(--primary-gold);
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+    }
+    100% {
+        transform: scale(1);
+        border-color: var(--primary-gold);
+    }
+}
+
+@keyframes tamperShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
+@keyframes fakeBlockInsert {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0) scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+@keyframes chainConnection {
+    0% {
+        width: 0;
+        background: var(--primary-blue);
+    }
+    100% {
+        width: 100%;
+        background: var(--success-green);
+    }
+}
+
+@keyframes securityPulse {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(0, 255, 136, 0.8);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .blockchain-chain {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .blockchain-block {
+        min-width: auto;
+    }
+    
+    .process-steps {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    
+    .comparison-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .blockchain-builder,
+    .security-demonstration {
+        gap: 1.5rem;
+    }
+    
+    .attack-simulation,
+    .security-features,
+    .trust-comparison,
+    .construction-process {
+        padding: 1.5rem;
+    }
+    
+    .blockchain-chain {
+        padding: 1.5rem;
+    }
+    
+    .blockchain-block {
+        padding: 1rem;
+        min-width: auto;
+    }
+    
+    .process-steps {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .construction-step {
+        padding: 1rem;
+    }
+    
+    .step-number {
+        width: 35px;
+        height: 35px;
+        font-size: var(--font-size-sm);
+    }
+    
+    .blockchain-mini {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .mini-block {
+        min-width: auto;
+        padding: 0.8rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .security-feature {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+    }
+    
+    .scenario-description {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+    }
+    
+    .trust-participants {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .hash-inputs {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .signature-demo {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .chain-link-demo {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .block-particles,
+    .attack-result,
+    .feature-status {
+        display: none !important;
+    }
+    
+    .blockchain-block,
+    .mini-block,
+    .security-feature {
+        border: 2px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+    }
+    
+    .blockchain-chain {
+        flex-direction: column;
+    }
+    
+    .security-demonstration {
+        page-break-inside: avoid;
+    }
+}
+
+/* Accessibility */
+.construction-step:focus,
+.security-feature:focus,
+.trust-model:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+.blockchain-block:focus {
+    outline: 3px solid var(--primary-gold);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .blockchain-block,
+    .mini-block,
+    .construction-step,
+    .security-feature {
+        border-width: 3px;
+    }
+    
+    .block-hash,
+    .hash-result,
+    .summary-hash {
+        background: rgba(255, 255, 255, 0.9);
+        color: #000;
+    }
+    
+    .construction-step.active,
+    .security-feature.active {
+        border-width: 4px;
+    }
+}

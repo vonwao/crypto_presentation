@@ -12,40 +12,47 @@ class Presentation {
         this.performanceMonitor = new AnimationPerformanceMonitor();
         
         // Slide definitions
-        this.slideDefinitions = [
-            {
-                id: 'intro',
-                title: 'Crypto Fundamentals',
-                subtitle: 'Understanding the Building Blocks of Blockchain',
-                animationClass: 'IntroAnimations'
-            },
-            {
-                id: 'hash',
-                title: 'Hash Functions: The Digital Blender',
-                subtitle: 'Any input → Always the same size output',
-                animationClass: 'HashDemo'
-            },
-            {
-                id: 'signatures',
-                title: 'Digital Signatures: Your Cryptographic DNA',
-                subtitle: 'Proving authenticity without revealing secrets',
-                animationClass: 'DigitalSignaturesDemo'
-            },
-            {
-                id: 'merkle',
-                title: 'Merkle Trees: The Efficient Detective',
-                subtitle: 'Verify data integrity without downloading everything',
-                animationClass: 'MerkleTreeDemo'
-            },
-            {
-                id: 'integration',
-                title: 'Putting It All Together',
-                subtitle: 'How hash functions, signatures, and Merkle trees create blockchain',
-                animationClass: 'BlockchainIntegrationDemo'
-            }
-        ];
-    }
+        // Replace the slideDefinitions array in your presentation.js with this:
 
+this.slideDefinitions = [
+    {
+        id: 'intro',
+        title: 'Crypto Fundamentals',
+        subtitle: 'Understanding the Building Blocks of Blockchain',
+        animationClass: 'IntroAnimations'
+    },
+    {
+        id: 'hash',
+        title: 'Hash Functions: The Digital Blender',
+        subtitle: 'Any input → Always the same size output',
+        animationClass: 'HashDemo'
+    },
+    {
+        id: 'signatures',
+        title: 'Digital Signatures: Your Cryptographic DNA',
+        subtitle: 'Proving authenticity without revealing secrets',
+        animationClass: 'DigitalSignaturesDemo'
+    },
+    {
+        id: 'merkle',
+        title: 'Merkle Trees: The Efficient Detective',
+        subtitle: 'Verify data integrity without downloading everything',
+        animationClass: 'MerkleTreeDemo'
+    },
+    {
+        id: 'blockchain-part1',
+        title: 'Building a Blockchain',
+        subtitle: 'Watch how our three concepts create an unbreakable chain',
+        animationClass: 'BlockchainPart1Demo'
+    },
+    {
+        id: 'blockchain-part2',
+        title: 'Why This Creates Unbreakable Security',
+        subtitle: 'Mathematical guarantees without central authority',
+        animationClass: 'BlockchainPart2Demo'
+    }
+];
+    }
     /**
      * Initializes the presentation
      */
