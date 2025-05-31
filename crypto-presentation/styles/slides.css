@@ -1,0 +1,507 @@
+/* styles/slides.css - Slide-specific styling */
+
+/* ==== INTRO SLIDE ==== */
+.intro-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    margin: 3rem 0;
+}
+
+.concept-card {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 2px solid transparent;
+    transition: all var(--transition-fast);
+    text-align: center;
+    cursor: pointer;
+}
+
+.concept-card.highlight {
+    border-color: var(--primary-blue);
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+}
+
+.concept-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.concept-card h3 {
+    font-size: var(--font-size-md);
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.concept-card p {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+/* ==== HASH DEMO SLIDE ==== */
+.demo-section {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 4rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.input-display, .output-display {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 2px solid var(--primary-blue);
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    transition: all var(--transition-fast);
+}
+
+.output-display {
+    border-color: var(--success-green);
+}
+
+.input-label, .output-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-value {
+    font-size: var(--font-size-lg);
+    font-weight: bold;
+    padding: 1rem 2rem;
+    background: rgba(0, 212, 255, 0.1);
+    border-radius: 15px;
+    border: 1px solid var(--primary-blue);
+}
+
+.hash-value {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    word-break: break-all;
+    padding: 1rem;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 15px;
+    border: 1px solid var(--success-green);
+    text-align: center;
+}
+
+.blender {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(45deg, var(--primary-gold), #ffed4e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transition: all 0.5s ease;
+}
+
+.blender-inner {
+    width: 180px;
+    height: 180px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+}
+
+.particle-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.data-particle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: var(--primary-blue);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.avalanche-section {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 3rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.comparison-item {
+    text-align: center;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+}
+
+.comparison-input {
+    font-size: var(--font-size-md);
+    margin-bottom: 1.5rem;
+}
+
+.comparison-output {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-sm);
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    word-break: break-all;
+}
+
+.comparison-arrow {
+    font-size: 3rem;
+    color: var(--primary-gold);
+    font-weight: bold;
+}
+
+/* ==== DIGITAL SIGNATURES SLIDE ==== */
+.signature-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.signature-process {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 2rem;
+    align-items: center;
+    justify-items: center;
+}
+
+.message-container, .signature-container {
+    width: 100%;
+    max-width: 300px;
+}
+
+.message-box {
+    background: var(--glass-bg);
+    border: 2px solid var(--primary-blue);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.message-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.message-content {
+    font-size: var(--font-size-md);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.message-sender {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.key-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.key-box {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    min-height: 180px;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    border: 2px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+.private-key {
+    border-color: var(--alert-red);
+}
+
+.public-key {
+    border-color: var(--success-green);
+}
+
+.key-box.signing {
+    animation: glow 2s infinite;
+    border-color: var(--primary-gold);
+}
+
+.key-box.verifying {
+    animation: glow 2s infinite;
+    border-color: var(--primary-blue);
+}
+
+.key-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.key-label {
+    font-size: var(--font-size-md);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.key-description {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.key-particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+}
+
+.process-arrow {
+    font-size: 2rem;
+    color: var(--primary-gold);
+    font-weight: bold;
+}
+
+.process-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.5rem;
+}
+
+.signature-box {
+    background: var(--glass-bg);
+    border: 2px solid var(--primary-gold);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.signature-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+}
+
+.signature-value {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-md);
+    font-weight: bold;
+    margin-bottom: 1rem;
+    word-break: break-all;
+    color: var(--primary-gold);
+}
+
+.signature-status {
+    font-size: var(--font-size-sm);
+    font-weight: bold;
+    color: var(--success-green);
+}
+
+.comparison-section {
+    margin-top: 2rem;
+}
+
+.comparison-grid .comparison-item.traditional {
+    border-color: var(--alert-red);
+}
+
+.comparison-grid .comparison-item.digital {
+    border-color: var(--success-green);
+}
+
+.comparison-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.comparison-icon {
+    font-size: 2rem;
+}
+
+.comparison-header h4 {
+    font-size: var(--font-size-md);
+    margin: 0;
+}
+
+.comparison-content {
+    text-align: left;
+}
+
+.comparison-point {
+    padding: 0.5rem 0;
+    font-size: var(--font-size-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ==== MERKLE TREES SLIDE ==== */
+.merkle-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.tree-container {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 3rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    min-height: 400px;
+}
+
+.tree-structure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.tree-level {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+}
+
+.tree-node {
+    background: var(--glass-bg);
+    border: 2px solid var(--primary-blue);
+    border-radius: 15px;
+    padding: 1rem;
+    min-width: 120px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-xs);
+    position: relative;
+    transition: all var(--transition-fast);
+}
+
+.tree-node.leaf {
+    border-color: var(--success-green);
+    background: rgba(0, 255, 136, 0.1);
+}
+
+.tree-node.root {
+    border-color: var(--primary-gold);
+    background: rgba(255, 215, 0, 0.1);
+    font-weight: bold;
+}
+
+.tree-node.highlighted {
+    animation: glow 2s infinite;
+    transform: scale(1.1);
+}
+
+.tree-connection {
+    position: absolute;
+    height: 2px;
+    background: var(--text-secondary);
+    top: -1rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ==== RESPONSIVE ADJUSTMENTS ==== */
+@media (max-width: 1200px) {
+    .intro-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .demo-section {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+    
+    .signature-process {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .process-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .comparison-arrow {
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .key-box {
+        min-width: 150px;
+        min-height: 150px;
+        padding: 1.5rem;
+    }
+    
+    .message-box, .signature-box {
+        min-height: 150px;
+        padding: 1.5rem;
+    }
+    
+    .tree-level {
+        flex-direction: column;
+        align-items: center;
+    }
+}
