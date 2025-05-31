@@ -21,12 +21,30 @@
     </div>
 
     <!-- Load scripts -->
-<script src="js/slides/intro.js"></script>
-<script src="js/slides/hash-demo.js"></script>
-<script src="js/slides/signatures-1.js"></script>
-<script src="js/slides/signatures-2.js"></script>
-<script src="js/slides/merkle-1.js"></script>
-<script src="js/slides/merkle-2.js"></script>
-<script src="js/slides/blockchain-part1.js"></script>
-<script src="js/slides/blockchain-part2.js"></script></body>
+    <!-- Core scripts must be loaded first -->
+    <script src="js/utils.js"></script>
+    <script src="js/animation-controller.js"></script>
+    <script src="js/presentation.js"></script>
+    
+    <!-- Slide scripts -->
+    <script src="js/slides/intro.js"></script>
+    <script src="js/slides/hash-demo.js"></script>
+    <script src="js/slides/signatures-1.js"></script>
+    <script src="js/slides/signatures-2.js"></script>
+    <script src="js/slides/merkle-1.js"></script>
+    <script src="js/slides/merkle-2.js"></script>
+    <script src="js/slides/blockchain-part1.js"></script>
+    <script src="js/slides/blockchain-part2.js"></script>
+    
+    <!-- Debug script to help diagnose issues -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded');
+            console.log('PresentationUtils available:', typeof window.PresentationUtils !== 'undefined');
+            console.log('AnimationController available:', typeof window.AnimationController !== 'undefined');
+            console.log('Presentation instance:', window.presentation);
+            console.log('Slide classes registered:', window.slideClasses);
+        });
+    </script>
+</body>
 </html>

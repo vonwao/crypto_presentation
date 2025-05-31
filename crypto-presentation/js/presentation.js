@@ -155,17 +155,28 @@ this.slideDefinitions = [
      */
     async init() {
         try {
+            console.log('Presentation init started');
             PresentationUtils.debug('Initializing presentation...');
+            
+            // Log available slide definitions
+            console.log('Slide definitions:', this.slideDefinitions);
             
             this.slidesContainer = document.getElementById('slides-container');
             this.navIndicator = document.getElementById('navIndicator');
+            
+            console.log('DOM elements found:', {
+                slidesContainer: !!this.slidesContainer,
+                navIndicator: !!this.navIndicator
+            });
             
             if (!this.slidesContainer) {
                 throw new Error('Slides container not found');
             }
 
             // Generate slides HTML
+            console.log('Generating slides...');
             await this.generateSlides();
+            console.log('Slides generated, count:', this.slides.length);
             
             // Setup navigation
             this.setupNavigation();
@@ -180,12 +191,18 @@ this.slideDefinitions = [
             this.handleInitialHash();
             
             // Activate first slide
+            console.log('Activating first slide...');
             this.activateSlide(0);
             
             PresentationUtils.debug('Presentation initialized successfully');
+            console.log('Presentation initialization complete');
             
         } catch (error) {
             console.error('Failed to initialize presentation:', error);
+            console.error('Error details:', {
+                message: error.message,
+                stack: error.stack
+            });
         }
     }
 
@@ -219,22 +236,42 @@ this.slideDefinitions = [
      * @returns {string} - HTML string
      */
     async generateSlideHTML(slideDef, index) {
+        console.log(`Generating slide HTML for: ${slideDef.id} (index: ${index})`);
+        
         // Check if slide class has custom HTML generator
         const SlideClass = window.slideClasses?.[slideDef.id];
+        console.log(`Slide class for ${slideDef.id}:`, SlideClass ? 'Found' : 'Not found');
+        
         if (SlideClass && typeof SlideClass.prototype.createSlideHTML === 'function') {
-            const instance = new SlideClass();
-            return instance.createSlideHTML();
+            console.log(`Using custom HTML generator for ${slideDef.id}`);
+            try {
+                const instance = new SlideClass();
+                return instance.createSlideHTML();
+            } catch (error) {
+                console.error(`Error creating slide HTML for ${slideDef.id}:`, error);
+                // Fall back to default template
+                return this.generatePlaceholderSlide(slideDef);
+            }
         }
         
         // Default slide templates
+        console.log(`Using default template for ${slideDef.id}`);
         switch (slideDef.id) {
             case 'intro':
                 return this.generateIntroSlide(slideDef);
             case 'hash':
                 return this.generateHashSlide(slideDef);
-            case 'signatures':
+            case 'signatures-part1':
+            case 'signatures-part2':
                 return this.generateSignaturesSlide(slideDef);
+            case 'merkle-part1':
+            case 'merkle-part2':
+            case 'blockchain-part1':
+            case 'blockchain-part2':
+                console.log(`Using placeholder for ${slideDef.id}`);
+                return this.generatePlaceholderSlide(slideDef);
             default:
+                console.warn(`No template found for slide: ${slideDef.id}, using placeholder`);
                 return this.generatePlaceholderSlide(slideDef);
         }
     }
@@ -468,7 +505,8 @@ this.slideDefinitions = [
      * Sets up keyboard navigation
      */
     setupKeyboard() {
-        document.addEventListener('keydown', (e) => {
+        // Store the handler as a property so we can remove it later
+        this.keydownHandler = (e) => {
             // Prevent navigation during transitions
             if (this.isTransitioning) {
                 e.preventDefault();
@@ -507,7 +545,10 @@ this.slideDefinitions = [
                     }
                     break;
             }
-        });
+        };
+        
+        console.log('Setting up keyboard navigation');
+        document.addEventListener('keydown', this.keydownHandler);
     }
 
     /**
@@ -715,10 +756,16 @@ this.slideDefinitions = [
      * Destroys the presentation and cleans up resources
      */
     destroy() {
+        console.log('Destroying presentation...');
+        
         // Stop all animations
         Object.values(this.slideAnimations).forEach(animation => {
             if (animation && typeof animation.deactivate === 'function') {
-                animation.deactivate();
+                try {
+                    animation.deactivate();
+                } catch (error) {
+                    console.error('Error deactivating animation:', error);
+                }
             }
         });
 
@@ -726,9 +773,34 @@ this.slideDefinitions = [
         this.performanceMonitor.stop();
 
         // Remove event listeners
-        document.removeEventListener('keydown', this.setupKeyboard);
-        window.removeEventListener('hashchange', this.handleHashChange);
+        if (this.keydownHandler) {
+            document.removeEventListener('keydown', this.keydownHandler);
+            console.log('Removed keydown event listener');
+        }
+        
+        // Store the hashchange handler reference
+        if (!this.hashChangeHandler && window.presentation) {
+            this.hashChangeHandler = () => window.presentation.handleHashChange();
+        }
+        
+        if (this.hashChangeHandler) {
+            window.removeEventListener('hashchange', this.hashChangeHandler);
+            console.log('Removed hashchange event listener');
+        }
+        
+        // Remove visibility change handler
+        if (this.visibilityChangeHandler) {
+            document.removeEventListener('visibilitychange', this.visibilityChangeHandler);
+            console.log('Removed visibilitychange event listener');
+        }
+        
+        // Remove error handler
+        if (this.errorHandler) {
+            window.removeEventListener('error', this.errorHandler);
+            console.log('Removed error event listener');
+        }
 
+        console.log('Presentation destroyed successfully');
         PresentationUtils.debug('Presentation destroyed');
     }
 }
@@ -751,15 +823,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         await presentationInstance.init();
         
         // Handle hash changes for browser navigation
-        window.addEventListener('hashchange', () => {
+        presentationInstance.hashChangeHandler = () => {
             if (presentationInstance) {
                 presentationInstance.handleHashChange();
             }
-        });
+        };
+        
+        window.addEventListener('hashchange', presentationInstance.hashChangeHandler);
+        console.log('Hash change handler registered');
 
         // Handle page visibility changes
-        document.addEventListener('visibilitychange', () => {
+        presentationInstance.visibilityChangeHandler = () => {
             if (document.hidden) {
+                console.log('Page hidden, pausing animations');
                 // Pause animations when tab is not visible
                 Object.values(presentationInstance.slideAnimations).forEach(animation => {
                     if (animation && animation.animationController && animation.animationController.pause) {
@@ -767,6 +843,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }
                 });
             } else {
+                console.log('Page visible, resuming animations');
                 // Resume animations when tab becomes visible
                 Object.values(presentationInstance.slideAnimations).forEach(animation => {
                     if (animation && animation.animationController && animation.animationController.resume) {
@@ -774,10 +851,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }
                 });
             }
-        });
+        };
+        
+        document.addEventListener('visibilitychange', presentationInstance.visibilityChangeHandler);
 
         // Global error handler for animations
-        window.addEventListener('error', (event) => {
+        presentationInstance.errorHandler = (event) => {
             if (event.error && event.error.message.includes('animation')) {
                 console.error('Animation error caught:', event.error);
                 // Try to recover by resetting current slide
@@ -788,7 +867,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }, 1000);
                 }
             }
-        });
+        };
+        
+        window.addEventListener('error', presentationInstance.errorHandler);
+        console.log('Error handler registered');
 
         // Expose presentation to global scope for debugging
         window.presentation = presentationInstance;
