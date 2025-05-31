@@ -50,29 +50,30 @@ class BlockchainPart1Demo {
         return `
             <div class="slide" data-slide="blockchain-part1">
                 <div class="slide-header">
-                    <h1>Building a Blockchain</h1>
-                    <p class="subtitle">Watch how our three concepts create an unbreakable chain</p>
+                    <h1>How Blockchain Works</h1>
+                    <p class="subtitle">Putting it all together: signatures, hashes, and Merkle trees</p>
                 </div>
                 
                 <div class="slide-content">
                     <div class="blockchain-builder">
                         <div class="blockchain-chain" id="blockchainChain">
-                            ${this.blocks.map((block, index) => this.generateBlockHTML(block, index)).join('')}
+                            <h3 style="text-align: center; color: var(--primary-gold); margin-bottom: 1.5rem;">The Blockchain</h3>
+                            ${this.blocks.map((block, index) => this.generateSimpleBlockHTML(block, index)).join('')}
                         </div>
                         
                         <div class="construction-process" id="constructionProcess">
-                            <div class="process-title">Block Construction Process</div>
+                            <div class="process-title">How Each Block is Built</div>
                             <div class="process-steps" id="processSteps">
                                 <div class="construction-step" id="step1">
                                     <div class="step-number">1</div>
                                     <div class="step-content">
                                         <div class="step-title">🔐 Sign Transactions</div>
-                                        <div class="step-description">Each transaction is cryptographically signed</div>
+                                        <div class="step-description">Every transaction gets a digital signature to prove it's real</div>
                                         <div class="step-visual" id="signingVisual">
                                             <div class="signature-demo">
-                                                <span class="tx-item">Alice→Bob: $50</span>
+                                                <span class="tx-item">Alice sends $50 to Bob</span>
                                                 <span class="sign-arrow">→</span>
-                                                <span class="signature-result">✓ Signed</span>
+                                                <span class="signature-result">✓ Verified</span>
                                             </div>
                                         </div>
                                     </div>
@@ -81,14 +82,14 @@ class BlockchainPart1Demo {
                                 <div class="construction-step" id="step2">
                                     <div class="step-number">2</div>
                                     <div class="step-content">
-                                        <div class="step-title">🌳 Build Merkle Tree</div>
-                                        <div class="step-description">Organize transactions efficiently</div>
+                                        <div class="step-title">🌳 Organize with Merkle Tree</div>
+                                        <div class="step-description">Bundle all transactions into one efficient summary</div>
                                         <div class="step-visual" id="merkleVisual">
                                             <div class="mini-merkle">
-                                                <div class="merkle-root">Root: d4e5f6...</div>
+                                                <div class="merkle-root">Summary Hash</div>
                                                 <div class="merkle-branches">
-                                                    <span class="branch">Branch1</span>
-                                                    <span class="branch">Branch2</span>
+                                                    <span class="branch">Group A</span>
+                                                    <span class="branch">Group B</span>
                                                 </div>
                                                 <div class="merkle-leaves">
                                                     <span class="leaf">TX1</span>
@@ -104,19 +105,28 @@ class BlockchainPart1Demo {
                                 <div class="construction-step" id="step3">
                                     <div class="step-number">3</div>
                                     <div class="step-content">
-                                        <div class="step-title">🌪️ Hash the Block</div>
-                                        <div class="step-description">Create unique block fingerprint</div>
+                                        <div class="step-title">🌪️ Create Block Hash</div>
+                                        <div class="step-description">Mix everything together to create a unique block fingerprint</div>
                                         <div class="step-visual" id="hashingVisual">
                                             <div class="hash-combination">
                                                 <div class="hash-inputs">
-                                                    <span class="hash-part">Prev</span>
-                                                    <span class="plus">+</span>
-                                                    <span class="hash-part">Merkle</span>
-                                                    <span class="plus">+</span>
-                                                    <span class="hash-part">Nonce</span>
+                                                    <div class="hash-input">
+                                                        <div class="input-label">Previous Block</div>
+                                                        <div class="input-value">1a2b3c...</div>
+                                                    </div>
+                                                    <div class="hash-arrow">+</div>
+                                                    <div class="hash-input">
+                                                        <div class="input-label">Merkle Root</div>
+                                                        <div class="input-value">d4e5f6...</div>
+                                                    </div>
+                                                    <div class="hash-arrow">+</div>
+                                                    <div class="hash-input">
+                                                        <div class="input-label">Timestamp</div>
+                                                        <div class="input-value">2024-01-02</div>
+                                                    </div>
                                                 </div>
                                                 <div class="hash-arrow">↓</div>
-                                                <div class="hash-result" id="hashResult">7g8h9i...</div>
+                                                <div class="hash-result" id="hashResult">New Block Hash: 7g8h9i...</div>
                                             </div>
                                         </div>
                                     </div>
@@ -125,14 +135,24 @@ class BlockchainPart1Demo {
                                 <div class="construction-step" id="step4">
                                     <div class="step-number">4</div>
                                     <div class="step-content">
-                                        <div class="step-title">⛓️ Link to Chain</div>
-                                        <div class="step-description">Connect to previous block</div>
+                                        <div class="step-title">⛓️ Connect to Chain</div>
+                                        <div class="step-description">Link this block to the previous one, creating an unbreakable chain</div>
                                         <div class="step-visual" id="linkingVisual">
                                             <div class="chain-link-demo">
-                                                <div class="prev-block">Block N-1</div>
-                                                <div class="link-arrow">→</div>
-                                                <div class="current-block">Block N</div>
-                                                <div class="link-line"></div>
+                                                <div class="chain-block">
+                                                    <div class="chain-block-title">Previous Block</div>
+                                                    <div class="chain-block-hash">1a2b3c...</div>
+                                                </div>
+                                                <div class="chain-arrow">→</div>
+                                                <div class="chain-block">
+                                                    <div class="chain-block-title">New Block</div>
+                                                    <div class="chain-block-hash">7g8h9i...</div>
+                                                </div>
+                                                <div class="chain-arrow">→</div>
+                                                <div class="chain-block">
+                                                    <div class="chain-block-title">Next Block</div>
+                                                    <div class="chain-block-hash">m4n5o6...</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -145,8 +165,8 @@ class BlockchainPart1Demo {
                 <div class="slide-footer">
                     <div class="key-points">
                         <div class="key-point">
-                            <span class="bullet">🔄</span>
-                            <span><strong>Repeating Process:</strong> Each block follows the exact same construction pattern</span>
+                            <span class="bullet">🔗</span>
+                            <span><strong>The Magic:</strong> Each block references the previous one, making tampering impossible</span>
                         </div>
                         <div class="key-point">
                             <span class="bullet">🔗</span>
@@ -197,16 +217,16 @@ class BlockchainPart1Demo {
 
         switch (subSlideId) {
             case 'blockchain-1-signing':
-                if (title) title.textContent = 'Blockchain: Transactions & Merkle Trees';
-                if (subtitle) subtitle.textContent = 'Steps 1-2: Sign transactions and build Merkle tree';
+                if (title) title.textContent = 'Step 1-2: Secure Transactions';
+                if (subtitle) subtitle.textContent = 'Sign transactions and organize them with Merkle trees';
                 break;
             case 'blockchain-1-hashing':
-                if (title) title.textContent = 'Blockchain: Block Hashing';
-                if (subtitle) subtitle.textContent = 'Step 3: Create unique block fingerprint';
+                if (title) title.textContent = 'Step 3: Create Block Hash';
+                if (subtitle) subtitle.textContent = 'Mix everything together to create a unique fingerprint';
                 break;
             case 'blockchain-1-linking':
-                if (title) title.textContent = 'Blockchain: Chain Linking';
-                if (subtitle) subtitle.textContent = 'Step 4: Connect to create unbreakable chain';
+                if (title) title.textContent = 'Step 4: Connect the Chain';
+                if (subtitle) subtitle.textContent = 'Link blocks together to create an unbreakable chain';
                 break;
         }
     }
@@ -260,7 +280,38 @@ class BlockchainPart1Demo {
     }
 
     /**
-     * Generates HTML for a single block (simplified version)
+     * Generates simplified HTML for a single block (for main view)
+     */
+    generateSimpleBlockHTML(block, index) {
+        return `
+            <div class="blockchain-block" id="block${index}" data-block-index="${index}">
+                <div class="block-header">
+                    <div class="block-title">Block #${block.index}</div>
+                    <div class="block-timestamp">${block.timestamp}</div>
+                </div>
+                
+                <div class="block-content">
+                    <div class="block-summary">
+                        <div class="summary-item">
+                            <span class="summary-label">Transactions:</span>
+                            <span class="summary-value">${block.transactions.length}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Previous Hash:</span>
+                            <code class="summary-hash">${block.previousHash}</code>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">This Block's Hash:</span>
+                            <code class="summary-hash">${block.hash}</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    /**
+     * Generates HTML for a single block (detailed version)
      */
     generateBlockHTML(block, index) {
         return `

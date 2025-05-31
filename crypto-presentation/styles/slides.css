@@ -1848,6 +1848,421 @@
     }
 }
 
+/* ===== BLOCKCHAIN SLIDES STYLING ===== */
+
+/* Blockchain Builder Layout */
+.blockchain-builder {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    height: 100%;
+    align-items: start;
+}
+
+.blockchain-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--glass-bg);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+}
+
+.blockchain-block {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--primary-blue);
+    border-radius: 15px;
+    padding: 1.5rem;
+    position: relative;
+    transition: all var(--transition-fast);
+}
+
+.blockchain-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+}
+
+.block-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.block-title {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--primary-gold);
+}
+
+.block-timestamp {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.block-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.block-hash-display {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 1rem;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary-blue);
+}
+
+.hash-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.block-hash {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-content);
+    color: var(--primary-blue);
+    word-break: break-all;
+}
+
+.block-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.summary-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.summary-value {
+    font-size: var(--font-size-sm);
+    color: var(--primary-gold);
+    font-weight: 600;
+}
+
+.summary-hash {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-content);
+    color: var(--success-green);
+}
+
+/* Construction Process Styling */
+.construction-process {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    background: var(--glass-bg);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+}
+
+.process-title {
+    font-size: var(--font-size-lg);
+    text-align: center;
+    color: var(--primary-gold);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.construction-step {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    border: 2px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+.construction-step.active {
+    border-color: var(--primary-blue);
+    background: rgba(0, 212, 255, 0.1);
+    transform: scale(1.02);
+}
+
+.step-number {
+    background: var(--primary-blue);
+    color: var(--text-primary);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-md);
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.step-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.step-title {
+    font-size: var(--font-size-md);
+    color: var(--primary-gold);
+    font-weight: 600;
+}
+
+.step-description {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.step-visual {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+}
+
+/* Step-specific visuals */
+.signature-demo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tx-item {
+    background: var(--glass-bg);
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-size: var(--font-size-content);
+    color: var(--text-primary);
+    border: 1px solid var(--glass-border);
+}
+
+.sign-arrow {
+    font-size: var(--font-size-bullet);
+    color: var(--primary-gold);
+}
+
+.signature-result {
+    background: var(--success-green);
+    color: var(--text-primary);
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-size: var(--font-size-content);
+    font-weight: 600;
+}
+
+.mini-merkle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.merkle-root {
+    background: var(--primary-gold);
+    color: var(--bg-dark);
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-size: var(--font-size-content);
+    font-weight: 600;
+}
+
+.merkle-branches {
+    display: flex;
+    gap: 2rem;
+}
+
+.branch {
+    background: var(--primary-blue);
+    color: var(--text-primary);
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-size: var(--font-size-content);
+}
+
+.merkle-leaves {
+    display: flex;
+    gap: 1rem;
+}
+
+.leaf {
+    background: var(--glass-bg);
+    border: 1px solid var(--primary-blue);
+    color: var(--text-primary);
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    font-size: var(--font-size-content);
+}
+
+/* Hash combination visual */
+.hash-combination {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: var(--glass-bg);
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+}
+
+.hash-inputs {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hash-input {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+    text-align: center;
+}
+
+.input-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.input-value {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-content);
+    color: var(--primary-blue);
+}
+
+.hash-arrow {
+    font-size: var(--font-size-icon);
+    color: var(--primary-gold);
+}
+
+.hash-result {
+    background: var(--success-green);
+    color: var(--text-primary);
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-content);
+    font-weight: 600;
+}
+
+/* Chain connection visual */
+.chain-link-demo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 2rem;
+    background: var(--glass-bg);
+    border-radius: 15px;
+    border: 1px solid var(--glass-border);
+}
+
+.chain-block {
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--primary-blue);
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 120px;
+}
+
+.chain-block-title {
+    font-size: var(--font-size-sm);
+    color: var(--primary-gold);
+    margin-bottom: 0.5rem;
+}
+
+.chain-block-hash {
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-content);
+    color: var(--primary-blue);
+}
+
+.chain-arrow {
+    font-size: var(--font-size-icon);
+    color: var(--primary-gold);
+}
+
+/* Responsive blockchain styling */
+@media (max-width: 1200px) {
+    .blockchain-builder {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .signature-demo,
+    .hash-inputs,
+    .chain-link-demo {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .merkle-branches,
+    .merkle-leaves {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .blockchain-chain,
+    .construction-process {
+        padding: 1rem;
+    }
+    
+    .construction-step {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .step-number {
+        align-self: center;
+    }
+    
+    .block-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .summary-item {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+}
+
 /* ==== UTILITY CLASSES ==== */
 .tampered {
     color: var(--alert-red) !important;
