@@ -71,10 +71,28 @@ class Presentation {
             },
             {
                 id: 'signatures-part2',
-                title: 'Digital Signatures Part 2: Security & Verification',
-                subtitle: 'Why digital beats physical signatures every time',
-                animationClass: 'SignaturesPart2Demo'
-                // TODO: Add subSlides after examining the file
+                title: 'Digital Signatures Part 2',
+                animationClass: 'SignaturesPart2Demo',
+                subSlides: [
+                    {
+                        id: 'signatures-2-process',
+                        title: 'Digital Signatures: The Signing Process',
+                        subtitle: 'Watch messages get cryptographically signed',
+                        sections: ['demo-process-steps-1-2', 'step-message', 'step-signing']
+                    },
+                    {
+                        id: 'signatures-2-verification',
+                        title: 'Digital Signatures: Verification & Results',
+                        subtitle: 'See how public keys verify authenticity',
+                        sections: ['demo-process-steps-3-4', 'step-signature', 'step-verification']
+                    },
+                    {
+                        id: 'signatures-2-benefits',
+                        title: 'Why Digital Signatures Are Revolutionary',
+                        subtitle: 'Non-repudiation, integrity, and global verification',
+                        sections: ['benefits-showcase']
+                    }
+                ]
             },
             {
                 id: 'merkle-part1',
@@ -103,24 +121,78 @@ class Presentation {
             },
             {
                 id: 'merkle-part2',
-                title: 'Merkle Trees Part 2: Verification & Security',
-                subtitle: 'Proving inclusion and detecting tampering',
-                animationClass: 'MerklePart2Demo'
-                // TODO: Add subSlides after examining the file
+                title: 'Merkle Trees Part 2',
+                animationClass: 'MerklePart2Demo',
+                subSlides: [
+                    {
+                        id: 'merkle-2-proof',
+                        title: 'Merkle Trees: Proof of Inclusion',
+                        subtitle: 'Verify transactions without downloading everything',
+                        sections: ['proof-demo', 'proof-process']
+                    },
+                    {
+                        id: 'merkle-2-efficiency',
+                        title: 'Merkle Trees: Efficiency Showcase',
+                        subtitle: '1 KB proof vs 500 GB full download',
+                        sections: ['efficiency-showcase']
+                    },
+                    {
+                        id: 'merkle-2-security',
+                        title: 'Merkle Trees: Tamper Detection',
+                        subtitle: 'Any change immediately breaks the tree',
+                        sections: ['tamper-demo', 'tamper-visualization']
+                    }
+                ]
             },
             {
                 id: 'blockchain-part1',
-                title: 'Building a Blockchain Part 1: Assembly',
-                subtitle: 'Watch how our three concepts create an unbreakable chain',
-                animationClass: 'BlockchainPart1Demo'
-                // TODO: Add subSlides after examining the file
+                title: 'Building a Blockchain Part 1',
+                animationClass: 'BlockchainPart1Demo',
+                subSlides: [
+                    {
+                        id: 'blockchain-1-signing',
+                        title: 'Blockchain: Transactions & Merkle Trees',
+                        subtitle: 'Steps 1-2: Sign transactions and build Merkle tree',
+                        sections: ['step1', 'step2', 'construction-process']
+                    },
+                    {
+                        id: 'blockchain-1-hashing',
+                        title: 'Blockchain: Block Hashing',
+                        subtitle: 'Step 3: Create unique block fingerprint',
+                        sections: ['step3', 'hash-combination']
+                    },
+                    {
+                        id: 'blockchain-1-linking',
+                        title: 'Blockchain: Chain Linking',
+                        subtitle: 'Step 4: Connect to create unbreakable chain',
+                        sections: ['step4', 'chain-connection']
+                    }
+                ]
             },
             {
                 id: 'blockchain-part2',
-                title: 'Building a Blockchain Part 2: Security Guarantees',
-                subtitle: 'Mathematical guarantees without central authority',
-                animationClass: 'BlockchainPart2Demo'
-                // TODO: Add subSlides after examining the file
+                title: 'Building a Blockchain Part 2',
+                animationClass: 'BlockchainPart2Demo',
+                subSlides: [
+                    {
+                        id: 'blockchain-2-attacks',
+                        title: 'Blockchain: Attack Simulations',
+                        subtitle: 'Watch attacks fail against mathematical security',
+                        sections: ['attack-simulation', 'attack-scenario']
+                    },
+                    {
+                        id: 'blockchain-2-security',
+                        title: 'Blockchain: Security Guarantees',
+                        subtitle: 'Four pillars of unbreakable security',
+                        sections: ['security-features']
+                    },
+                    {
+                        id: 'blockchain-2-trust',
+                        title: 'Blockchain: Revolutionary Trust Model',
+                        subtitle: 'Mathematical proof replaces central authority',
+                        sections: ['trust-comparison']
+                    }
+                ]
             }
         ];
         
