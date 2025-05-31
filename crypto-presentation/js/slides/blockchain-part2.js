@@ -1,51 +1,29 @@
 // js/slides/blockchain-part2.js
-// Second part: Why blockchain creates unbreakable security
+// Simplified blockchain security explanation - Phase 1 Content Simplification
 
 class BlockchainPart2Demo {
     constructor() {
-        this.securityDemos = [
+        // Simple security benefits in plain English
+        this.securityBenefits = [
             {
-                title: "Immutable History",
-                description: "Changing any past transaction requires recalculating all subsequent blocks",
-                icon: "🛡️"
+                title: "No Single Point of Failure",
+                description: "No one computer controls everything",
+                icon: "🌐"
             },
             {
-                title: "Instant Verification", 
-                description: "Merkle trees allow verification without downloading the entire blockchain",
-                icon: "⚡"
+                title: "Math Provides the Proof", 
+                description: "Cryptography makes cheating impossible",
+                icon: "🧮"
             },
             {
-                title: "Cryptographic Proof",
-                description: "Digital signatures ensure only authorized parties can create transactions",
-                icon: "🔍"
-            },
-            {
-                title: "Decentralized Trust",
-                description: "No central authority needed - math provides the guarantee",
-                icon: "🌍"
+                title: "Everyone Can Verify",
+                description: "Anyone can check the math themselves",
+                icon: "✅"
             }
         ];
         
-        this.attackScenarios = [
-            {
-                name: "Transaction Tampering",
-                description: "Attempt to change a past transaction",
-                breakagePoint: "Hash mismatch detected immediately"
-            },
-            {
-                name: "Block Insertion",
-                description: "Try to insert a fake block in the middle",
-                breakagePoint: "Chain continuity broken - invalid previous hash"
-            },
-            {
-                name: "Signature Forgery",
-                description: "Attempt to forge a digital signature",
-                breakagePoint: "Mathematical verification fails"
-            }
-        ];
-        
-        this.currentAnimationPhase = 0;
-        this.animationController = new AnimationController(9000); // 9 second cycles
+        this.currentSubSlide = 0;
+        this.animationController = new AnimationController(6000); // 6 second cycles
         this.isActive = false;
         this.elements = {};
     }
@@ -59,134 +37,101 @@ class BlockchainPart2Demo {
             <div class="slide" data-slide="blockchain-part2">
                 <div class="slide-header">
                     <h1>Why This Creates Unbreakable Security</h1>
-                    <p class="subtitle">Mathematical guarantees without central authority</p>
+                    <p class="subtitle">Simple explanations of revolutionary trust</p>
                 </div>
                 
                 <div class="slide-content">
-                    <div class="security-demonstration">
-                        <div class="attack-simulation" id="attackSimulation">
-                            <h3 class="demo-title">🎯 Attack Simulation</h3>
-                            <div class="attack-scenario" id="attackScenario">
-                                <div class="scenario-description">
-                                    <div class="attacker-icon">👤</div>
-                                    <div class="attack-details">
-                                        <div class="attack-name" id="attackName">Transaction Tampering</div>
-                                        <div class="attack-description" id="attackDescription">
-                                            Attempt to change a past transaction
+                    <div class="blockchain-security-demo">
+                        
+                        <!-- Sub-slide 1: Why Tampering Fails -->
+                        <div class="security-section tampering-demo" id="tamperingDemo">
+                            <h2 class="section-title">🎯 Why Tampering Fails</h2>
+                            <div class="tampering-explanation">
+                                <div class="simple-blockchain">
+                                    <div class="simple-block" id="originalBlock">
+                                        <div class="block-label">Block #2</div>
+                                        <div class="transaction" id="originalTransaction">
+                                            Alice → Bob: $50
+                                        </div>
+                                        <div class="block-hash" id="originalHash">
+                                            Hash: abc123...
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="chain-arrow">→</div>
+                                    
+                                    <div class="simple-block" id="nextBlock">
+                                        <div class="block-label">Block #3</div>
+                                        <div class="prev-reference" id="prevReference">
+                                            Previous: abc123...
+                                        </div>
+                                        <div class="block-hash">
+                                            Hash: def456...
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <div class="attack-visualization" id="attackVisualization">
-                                    <div class="blockchain-mini">
-                                        <div class="mini-block" id="targetBlock">
-                                            <div class="block-label">Block #2</div>
-                                            <div class="block-content">
-                                                <div class="transaction" id="targetTransaction">
-                                                    Alice→Bob: $50
-                                                </div>
-                                                <div class="block-hash" id="targetHash">
-                                                    7g8h9i...
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="chain-arrow">→</div>
-                                        
-                                        <div class="mini-block" id="nextBlock">
-                                            <div class="block-label">Block #3</div>
-                                            <div class="block-content">
-                                                <div class="prev-hash-ref" id="prevHashRef">
-                                                    Prev: 7g8h9i...
-                                                </div>
-                                                <div class="block-hash">
-                                                    m4n5o6...
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="attack-result" id="attackResult">
-                                        <div class="result-icon" id="resultIcon">⚠️</div>
-                                        <div class="result-message" id="resultMessage">
-                                            Attempting attack...
-                                        </div>
+                                <div class="tampering-result" id="tamperingResult">
+                                    <div class="result-icon">🛡️</div>
+                                    <div class="result-text">
+                                        <strong>Try to change anything = everything breaks</strong>
+                                        <p>Hash mismatch detected instantly</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="security-features" id="securityFeatures">
-                            <h3 class="demo-title">🔒 Security Guarantees</h3>
-                            <div class="features-grid">
-                                ${this.securityDemos.map((feature, index) => `
-                                    <div class="security-feature" id="feature${index}" data-feature="${index}">
-                                        <div class="feature-icon">${feature.icon}</div>
-                                        <div class="feature-content">
-                                            <h4 class="feature-title">${feature.title}</h4>
-                                            <p class="feature-description">${feature.description}</p>
-                                        </div>
-                                        <div class="feature-status" id="featureStatus${index}">
-                                            <div class="status-indicator">✓</div>
+                        <!-- Sub-slide 2: Security Benefits -->
+                        <div class="security-section benefits-demo" id="benefitsDemo">
+                            <h2 class="section-title">🔒 Security Benefits</h2>
+                            <div class="benefits-grid">
+                                ${this.securityBenefits.map((benefit, index) => `
+                                    <div class="benefit-card" id="benefit${index}" data-benefit="${index}">
+                                        <div class="benefit-icon">${benefit.icon}</div>
+                                        <div class="benefit-content">
+                                            <h3 class="benefit-title">${benefit.title}</h3>
+                                            <p class="benefit-description">${benefit.description}</p>
                                         </div>
                                     </div>
                                 `).join('')}
                             </div>
                         </div>
 
-                        <div class="trust-comparison" id="trustComparison">
-                            <h3 class="demo-title">🏛️ Traditional vs Blockchain Trust</h3>
-                            <div class="comparison-grid">
-                                <div class="trust-model traditional" id="traditionalModel">
+                        <!-- Sub-slide 3: Revolutionary Trust -->
+                        <div class="security-section trust-demo" id="trustDemo">
+                            <h2 class="section-title">🏛️ Revolutionary Trust</h2>
+                            <div class="trust-comparison">
+                                <div class="trust-model old-way" id="oldWay">
                                     <div class="model-header">
                                         <div class="model-icon">🏦</div>
-                                        <h4>Traditional System</h4>
+                                        <h3>Old Way</h3>
                                     </div>
-                                    <div class="trust-flow">
-                                        <div class="trust-node central">
-                                            <div class="node-label">Central Authority</div>
-                                            <div class="node-description">Bank, Government, Company</div>
+                                    <div class="trust-description">
+                                        <p><strong>"Trust the bank"</strong></p>
+                                        <p>Single point of control</p>
+                                        <div class="trust-issues">
+                                            <div class="issue">❌ Can be hacked</div>
+                                            <div class="issue">❌ Can be corrupted</div>
+                                            <div class="issue">❌ Can fail</div>
                                         </div>
-                                        <div class="trust-connections">
-                                            <div class="connection-line"></div>
-                                            <div class="connection-line"></div>
-                                            <div class="connection-line"></div>
-                                        </div>
-                                        <div class="trust-participants">
-                                            <div class="participant">User A</div>
-                                            <div class="participant">User B</div>
-                                            <div class="participant">User C</div>
-                                        </div>
-                                    </div>
-                                    <div class="model-issues">
-                                        <div class="issue">❌ Single point of failure</div>
-                                        <div class="issue">❌ Requires trust in authority</div>
-                                        <div class="issue">❌ Can be corrupted or hacked</div>
                                     </div>
                                 </div>
 
-                                <div class="trust-model blockchain" id="blockchainModel">
+                                <div class="vs-divider">VS</div>
+
+                                <div class="trust-model new-way" id="newWay">
                                     <div class="model-header">
                                         <div class="model-icon">⛓️</div>
-                                        <h4>Blockchain System</h4>
+                                        <h3>New Way</h3>
                                     </div>
-                                    <div class="trust-flow">
-                                        <div class="trust-network">
-                                            <div class="network-node">A</div>
-                                            <div class="network-node">B</div>
-                                            <div class="network-node">C</div>
-                                            <div class="network-node">D</div>
-                                            <div class="network-connections"></div>
+                                    <div class="trust-description">
+                                        <p><strong>"Trust the math"</strong></p>
+                                        <p>Distributed proof</p>
+                                        <div class="trust-benefits">
+                                            <div class="benefit">✅ No middleman needed</div>
+                                            <div class="benefit">✅ Math can't lie</div>
+                                            <div class="benefit">✅ Everyone can verify</div>
                                         </div>
-                                        <div class="math-guarantee">
-                                            <div class="guarantee-icon">📐</div>
-                                            <div class="guarantee-text">Mathematical Proof</div>
-                                        </div>
-                                    </div>
-                                    <div class="model-benefits">
-                                        <div class="benefit">✅ No single point of failure</div>
-                                        <div class="benefit">✅ Trust through mathematics</div>
-                                        <div class="benefit">✅ Transparent and verifiable</div>
                                     </div>
                                 </div>
                             </div>
@@ -198,15 +143,15 @@ class BlockchainPart2Demo {
                     <div class="key-points">
                         <div class="key-point">
                             <span class="bullet">🎯</span>
-                            <span><strong>Complete System:</strong> Each piece reinforces the others for maximum security</span>
+                            <span><strong>Unbreakable:</strong> Changing anything breaks the mathematical proof</span>
                         </div>
                         <div class="key-point">
                             <span class="bullet">🧮</span>
-                            <span><strong>Mathematical Trust:</strong> No human institutions required - pure math</span>
+                            <span><strong>Trustless:</strong> No human institutions required - pure mathematics</span>
                         </div>
                         <div class="key-point">
                             <span class="bullet">🚀</span>
-                            <span><strong>Revolutionary:</strong> This enables programmable money, smart contracts, and Web3</span>
+                            <span><strong>Revolutionary:</strong> This enables programmable money and Web3</span>
                         </div>
                     </div>
                 </div>
@@ -248,17 +193,17 @@ class BlockchainPart2Demo {
         const subtitle = header.querySelector('.subtitle');
 
         switch (subSlideId) {
-            case 'blockchain-2-attacks':
-                if (title) title.textContent = 'Blockchain: Attack Simulations';
-                if (subtitle) subtitle.textContent = 'Watch attacks fail against mathematical security';
+            case 'blockchain-2-tampering':
+                if (title) title.textContent = 'Why Tampering Fails';
+                if (subtitle) subtitle.textContent = 'One clear example of why you can\'t change blockchain';
                 break;
-            case 'blockchain-2-security':
-                if (title) title.textContent = 'Blockchain: Security Guarantees';
-                if (subtitle) subtitle.textContent = 'Four pillars of unbreakable security';
+            case 'blockchain-2-benefits':
+                if (title) title.textContent = 'Security Benefits';
+                if (subtitle) subtitle.textContent = 'Three key benefits in plain language';
                 break;
             case 'blockchain-2-trust':
-                if (title) title.textContent = 'Blockchain: Revolutionary Trust Model';
-                if (subtitle) subtitle.textContent = 'Mathematical proof replaces central authority';
+                if (title) title.textContent = 'Revolutionary Trust';
+                if (subtitle) subtitle.textContent = 'Old way vs New way - no middleman needed';
                 break;
         }
     }
@@ -270,8 +215,8 @@ class BlockchainPart2Demo {
         const content = slideElement.querySelector('.slide-content');
         if (!content) return;
 
-        // Hide all major sections initially
-        const allSections = content.querySelectorAll('.attack-simulation, .security-features, .trust-comparison');
+        // Hide all sections initially
+        const allSections = content.querySelectorAll('.security-section');
         allSections.forEach(section => {
             section.style.display = 'none';
         });
@@ -279,21 +224,17 @@ class BlockchainPart2Demo {
         // Show only specified sections
         sections.forEach(sectionId => {
             switch (sectionId) {
-                case 'attack-simulation':
-                    const attackSimulation = content.querySelector('.attack-simulation');
-                    if (attackSimulation) attackSimulation.style.display = 'block';
+                case 'tampering-demo':
+                    const tamperingDemo = content.querySelector('.tampering-demo');
+                    if (tamperingDemo) tamperingDemo.style.display = 'block';
                     break;
-                case 'attack-scenario':
-                    const attackScenario = content.querySelector('.attack-scenario');
-                    if (attackScenario) attackScenario.style.display = 'block';
+                case 'benefits-demo':
+                    const benefitsDemo = content.querySelector('.benefits-demo');
+                    if (benefitsDemo) benefitsDemo.style.display = 'block';
                     break;
-                case 'security-features':
-                    const securityFeatures = content.querySelector('.security-features');
-                    if (securityFeatures) securityFeatures.style.display = 'block';
-                    break;
-                case 'trust-comparison':
-                    const trustComparison = content.querySelector('.trust-comparison');
-                    if (trustComparison) trustComparison.style.display = 'block';
+                case 'trust-demo':
+                    const trustDemo = content.querySelector('.trust-demo');
+                    if (trustDemo) trustDemo.style.display = 'block';
                     break;
             }
         });
@@ -306,33 +247,30 @@ class BlockchainPart2Demo {
         if (this.isActive) return;
         this.isActive = true;
         
-        PresentationUtils.debug('Activating Blockchain Part 2 Demo');
+        PresentationUtils.debug('Activating Simplified Blockchain Part 2 Demo');
         
         // Get element references
         this.elements = {
-            attackSimulation: document.getElementById('attackSimulation'),
-            attackScenario: document.getElementById('attackScenario'),
-            securityFeatures: document.getElementById('securityFeatures'),
-            trustComparison: document.getElementById('trustComparison'),
-            attackName: document.getElementById('attackName'),
-            attackDescription: document.getElementById('attackDescription'),
-            targetTransaction: document.getElementById('targetTransaction'),
-            targetHash: document.getElementById('targetHash'),
-            prevHashRef: document.getElementById('prevHashRef'),
-            attackResult: document.getElementById('attackResult'),
-            resultIcon: document.getElementById('resultIcon'),
-            resultMessage: document.getElementById('resultMessage')
+            tamperingDemo: document.getElementById('tamperingDemo'),
+            benefitsDemo: document.getElementById('benefitsDemo'),
+            trustDemo: document.getElementById('trustDemo'),
+            originalTransaction: document.getElementById('originalTransaction'),
+            originalHash: document.getElementById('originalHash'),
+            prevReference: document.getElementById('prevReference'),
+            tamperingResult: document.getElementById('tamperingResult'),
+            oldWay: document.getElementById('oldWay'),
+            newWay: document.getElementById('newWay')
         };
 
         this.getElementReferences();
         
-        if (!this.elements.attackSimulation) {
+        if (!this.elements.tamperingDemo && !this.elements.benefitsDemo && !this.elements.trustDemo) {
             console.warn('Blockchain part 2 elements not found, skipping activation');
             return;
         }
 
         // Set up animation callback
-        this.animationController.addCallback(() => this.runSecurityDemo());
+        this.animationController.addCallback(() => this.runSimpleDemo());
         this.animationController.start();
         
         // Initial setup
@@ -346,7 +284,7 @@ class BlockchainPart2Demo {
         if (!this.isActive) return;
         this.isActive = false;
         
-        PresentationUtils.debug('Deactivating Blockchain Part 2 Demo');
+        PresentationUtils.debug('Deactivating Simplified Blockchain Part 2 Demo');
         
         // Stop animation controller
         this.animationController.stop();
@@ -359,219 +297,132 @@ class BlockchainPart2Demo {
      * Gets references to elements
      */
     getElementReferences() {
-        this.elements.features = [];
-        this.elements.blocks = {
-            target: document.getElementById('targetBlock'),
-            next: document.getElementById('nextBlock')
-        };
-        
-        // Get security feature references
-        this.securityDemos.forEach((feature, index) => {
-            this.elements.features.push({
-                container: document.getElementById(`feature${index}`),
-                status: document.getElementById(`featureStatus${index}`)
-            });
+        // Get benefit card references
+        this.elements.benefits = [];
+        this.securityBenefits.forEach((benefit, index) => {
+            const benefitElement = document.getElementById(`benefit${index}`);
+            if (benefitElement) {
+                this.elements.benefits.push(benefitElement);
+            }
         });
     }
 
     /**
-     * Runs the main security demonstration sequence
+     * Runs the simplified demonstration sequence
      */
-    runSecurityDemo() {
+    runSimpleDemo() {
         if (!this.isActive) return;
         
-        this.currentAnimationPhase = (this.currentAnimationPhase + 1) % 4;
+        this.currentSubSlide = (this.currentSubSlide + 1) % 3;
         
-        PresentationUtils.debug(`Security demo phase: ${this.currentAnimationPhase}`);
+        PresentationUtils.debug(`Simple demo phase: ${this.currentSubSlide}`);
         
         // Clear previous animations
         this.clearAllAnimations();
         
-        switch (this.currentAnimationPhase) {
+        switch (this.currentSubSlide) {
             case 0:
-                this.simulateTransactionTampering();
+                this.demonstrateTampering();
                 break;
             case 1:
-                this.demonstrateSecurityFeatures();
+                this.highlightBenefits();
                 break;
             case 2:
-                this.simulateBlockInsertion();
-                break;
-            case 3:
                 this.compareTrustModels();
                 break;
         }
     }
 
     /**
-     * Simulates transaction tampering attack
+     * Simple tampering demonstration
      */
-    simulateTransactionTampering() {
-        const scenario = this.attackScenarios[0];
+    demonstrateTampering() {
+        if (!this.elements.originalTransaction) return;
         
-        // Update attack details
-        this.elements.attackName.textContent = scenario.name;
-        this.elements.attackDescription.textContent = scenario.description;
+        // Step 1: Show normal state
+        this.elements.originalTransaction.style.color = "var(--text-primary)";
+        this.elements.originalHash.style.color = "var(--primary-blue)";
+        this.elements.prevReference.style.color = "var(--text-secondary)";
         
-        // Reset to normal state
-        this.elements.targetTransaction.textContent = "Alice→Bob: $50";
-        this.elements.targetTransaction.style.color = "var(--text-primary)";
-        this.elements.resultIcon.textContent = "⚠️";
-        this.elements.resultMessage.textContent = "Attempting attack...";
-        
-        // Step 1: Highlight target transaction
+        // Step 2: Attempt tampering
         setTimeout(() => {
-            if (this.isActive) {
-                this.elements.blocks.target.classList.add('attack-target');
-                PresentationUtils.createRipple(this.elements.blocks.target, 'var(--alert-red)');
-            }
-        }, 500);
-        
-        // Step 2: Show tampering
-        setTimeout(() => {
-            if (this.isActive) {
-                this.elements.targetTransaction.textContent = "Alice→Bob: $5000";
-                this.elements.targetTransaction.style.color = "var(--alert-red)";
-                this.elements.targetTransaction.style.animation = "tamperShake 0.5s infinite";
-            }
-        }, 1500);
-        
-        // Step 3: Show hash change
-        setTimeout(() => {
-            if (this.isActive) {
-                this.elements.targetHash.textContent = "CHANGED!";
-                this.elements.targetHash.style.color = "var(--alert-red)";
-                this.elements.targetHash.style.animation = "highlight 1s infinite";
-            }
-        }, 2500);
-        
-        // Step 4: Show chain break
-        setTimeout(() => {
-            if (this.isActive) {
-                this.elements.prevHashRef.style.color = "var(--alert-red)";
-                this.elements.prevHashRef.style.animation = "highlight 1s infinite";
-                this.elements.blocks.next.classList.add('chain-broken');
-            }
-        }, 3500);
-        
-        // Step 5: Show failure
-        setTimeout(() => {
-            if (this.isActive) {
-                this.elements.resultIcon.textContent = "❌";
-                this.elements.resultMessage.textContent = scenario.breakagePoint;
-                this.elements.attackResult.style.background = "rgba(255, 71, 87, 0.1)";
-                this.elements.attackResult.style.borderColor = "var(--alert-red)";
-            }
-        }, 4500);
-    }
-
-    /**
-     * Demonstrates security features
-     */
-    demonstrateSecurityFeatures() {
-        // Reset attack visualization
-        this.resetAttackVisualization();
-        
-        // Highlight security features one by one
-        this.elements.features.forEach((feature, index) => {
-            setTimeout(() => {
-                if (this.isActive) {
-                    feature.container.classList.add('active');
-                    feature.status.style.animation = "bounce 1s ease-out";
-                    PresentationUtils.createRipple(feature.container, 'var(--success-green)');
-                }
-            }, index * 800);
-        });
-        
-        // Create overall security pulse
-        setTimeout(() => {
-            if (this.isActive) {
-                this.elements.securityFeatures.style.animation = "securityPulse 2s ease-out";
-            }
-        }, 3000);
-    }
-
-    /**
-     * Simulates block insertion attack
-     */
-    simulateBlockInsertion() {
-        const scenario = this.attackScenarios[1];
-        
-        // Update attack details
-        this.elements.attackName.textContent = scenario.name;
-        this.elements.attackDescription.textContent = scenario.description;
-        
-        // Reset attack visualization
-        this.resetAttackVisualization();
-        
-        // Show fake block insertion attempt
-        setTimeout(() => {
-            if (this.isActive) {
-                const fakeBlock = document.createElement('div');
-                fakeBlock.className = 'mini-block fake-block';
-                fakeBlock.innerHTML = `
-                    <div class="block-label">Fake Block</div>
-                    <div class="block-content">
-                        <div class="transaction">Hacker→Self: $1M</div>
-                        <div class="block-hash">FAKE123...</div>
-                    </div>
-                `;
-                
-                const visualization = this.elements.attackScenario.querySelector('.attack-visualization .blockchain-mini');
-                visualization.insertBefore(fakeBlock, visualization.querySelector('.chain-arrow'));
-                
-                fakeBlock.style.animation = "fakeBlockInsert 2s ease-out";
+            if (this.isActive && this.elements.originalTransaction) {
+                this.elements.originalTransaction.textContent = "Alice → Bob: $5000";
+                this.elements.originalTransaction.style.color = "var(--alert-red)";
+                this.elements.originalTransaction.style.animation = "shake 0.5s infinite";
             }
         }, 1000);
         
-        // Show chain rejection
+        // Step 3: Show hash change
         setTimeout(() => {
-            if (this.isActive) {
-                this.elements.resultIcon.textContent = "❌";
-                this.elements.resultMessage.textContent = scenario.breakagePoint;
-                this.elements.attackResult.style.background = "rgba(255, 71, 87, 0.1)";
-                
-                // Remove fake block
-                const fakeBlock = document.querySelector('.fake-block');
-                if (fakeBlock) {
-                    fakeBlock.style.animation = "fadeOut 1s ease-out";
-                    setTimeout(() => fakeBlock.remove(), 1000);
-                }
+            if (this.isActive && this.elements.originalHash) {
+                this.elements.originalHash.textContent = "Hash: CHANGED!";
+                this.elements.originalHash.style.color = "var(--alert-red)";
+                this.elements.originalHash.style.animation = "highlight 1s infinite";
+            }
+        }, 2000);
+        
+        // Step 4: Show mismatch
+        setTimeout(() => {
+            if (this.isActive && this.elements.prevReference) {
+                this.elements.prevReference.style.color = "var(--alert-red)";
+                this.elements.prevReference.style.animation = "highlight 1s infinite";
             }
         }, 3000);
+        
+        // Step 5: Show failure result
+        setTimeout(() => {
+            if (this.isActive && this.elements.tamperingResult) {
+                this.elements.tamperingResult.style.background = "rgba(255, 71, 87, 0.1)";
+                this.elements.tamperingResult.style.borderColor = "var(--alert-red)";
+                this.elements.tamperingResult.style.animation = "pulse 2s ease-out";
+            }
+        }, 4000);
+        
+        // Step 6: Reset for next cycle
+        setTimeout(() => {
+            if (this.isActive) {
+                this.resetTamperingDemo();
+            }
+        }, 5000);
     }
 
     /**
-     * Compares traditional vs blockchain trust models
+     * Highlight security benefits one by one
+     */
+    highlightBenefits() {
+        this.elements.benefits.forEach((benefit, index) => {
+            setTimeout(() => {
+                if (this.isActive && benefit) {
+                    benefit.classList.add('active');
+                    benefit.style.animation = "fadeInScale 1s ease-out";
+                    PresentationUtils.createRipple(benefit, 'var(--success-green)');
+                }
+            }, index * 1000);
+        });
+    }
+
+    /**
+     * Compare trust models
      */
     compareTrustModels() {
-        // Reset attack visualization
-        this.resetAttackVisualization();
+        // Highlight old way issues
+        if (this.elements.oldWay) {
+            const issues = this.elements.oldWay.querySelectorAll('.issue');
+            issues.forEach((issue, index) => {
+                setTimeout(() => {
+                    if (this.isActive) {
+                        issue.style.animation = "highlight 2s infinite";
+                        issue.style.color = "var(--alert-red)";
+                    }
+                }, index * 500);
+            });
+        }
         
-        // Hide attack simulation, focus on trust comparison
-        this.elements.attackSimulation.style.opacity = "0.3";
-        this.elements.trustComparison.style.transform = "scale(1.05)";
-        this.elements.trustComparison.style.background = "rgba(0, 212, 255, 0.1)";
-        
-        // Animate traditional model issues
-        const traditionalModel = document.getElementById('traditionalModel');
-        const issues = traditionalModel.querySelectorAll('.issue');
-        
-        issues.forEach((issue, index) => {
-            setTimeout(() => {
-                if (this.isActive) {
-                    issue.style.animation = "highlight 2s infinite";
-                    issue.style.color = "var(--alert-red)";
-                }
-            }, index * 500);
-        });
-        
-        // Animate blockchain model benefits
+        // Highlight new way benefits
         setTimeout(() => {
-            if (this.isActive) {
-                const blockchainModel = document.getElementById('blockchainModel');
-                const benefits = blockchainModel.querySelectorAll('.benefit');
-                
+            if (this.isActive && this.elements.newWay) {
+                const benefits = this.elements.newWay.querySelectorAll('.benefit');
                 benefits.forEach((benefit, index) => {
                     setTimeout(() => {
                         if (this.isActive) {
@@ -581,72 +432,58 @@ class BlockchainPart2Demo {
                     }, index * 400);
                 });
                 
-                // Highlight mathematical guarantee
-                const mathGuarantee = blockchainModel.querySelector('.math-guarantee');
-                mathGuarantee.style.animation = "pulse 2s infinite";
-                mathGuarantee.style.background = "var(--primary-gold)";
-                mathGuarantee.style.color = "white";
+                // Highlight the whole new way
+                this.elements.newWay.style.animation = "pulse 2s infinite";
+                this.elements.newWay.style.background = "rgba(0, 255, 136, 0.1)";
             }
         }, 2000);
     }
 
     /**
-     * Resets the attack visualization to clean state
+     * Reset tampering demonstration
      */
-    resetAttackVisualization() {
-        // Reset attack simulation visibility
-        this.elements.attackSimulation.style.opacity = "1";
-        this.elements.trustComparison.style.transform = "scale(1)";
-        this.elements.trustComparison.style.background = "";
-        
-        // Reset transaction
-        this.elements.targetTransaction.textContent = "Alice→Bob: $50";
-        this.elements.targetTransaction.style.color = "var(--text-primary)";
-        this.elements.targetTransaction.style.animation = "";
-        
-        // Reset hashes
-        this.elements.targetHash.textContent = "7g8h9i...";
-        this.elements.targetHash.style.color = "var(--primary-blue)";
-        this.elements.targetHash.style.animation = "";
-        
-        this.elements.prevHashRef.style.color = "var(--text-secondary)";
-        this.elements.prevHashRef.style.animation = "";
-        
-        // Reset result
-        this.elements.resultIcon.textContent = "🛡️";
-        this.elements.resultMessage.textContent = "Blockchain security active";
-        this.elements.attackResult.style.background = "rgba(0, 255, 136, 0.1)";
-        this.elements.attackResult.style.borderColor = "var(--success-green)";
-        
-        // Reset blocks
-        if (this.elements.blocks.target) {
-            this.elements.blocks.target.classList.remove('attack-target');
-        }
-        if (this.elements.blocks.next) {
-            this.elements.blocks.next.classList.remove('chain-broken');
+    resetTamperingDemo() {
+        if (this.elements.originalTransaction) {
+            this.elements.originalTransaction.textContent = "Alice → Bob: $50";
+            this.elements.originalTransaction.style.color = "var(--text-primary)";
+            this.elements.originalTransaction.style.animation = "";
         }
         
-        // Remove any fake blocks
-        const fakeBlocks = document.querySelectorAll('.fake-block');
-        fakeBlocks.forEach(block => block.remove());
+        if (this.elements.originalHash) {
+            this.elements.originalHash.textContent = "Hash: abc123...";
+            this.elements.originalHash.style.color = "var(--primary-blue)";
+            this.elements.originalHash.style.animation = "";
+        }
+        
+        if (this.elements.prevReference) {
+            this.elements.prevReference.style.color = "var(--text-secondary)";
+            this.elements.prevReference.style.animation = "";
+        }
+        
+        if (this.elements.tamperingResult) {
+            this.elements.tamperingResult.style.background = "rgba(0, 255, 136, 0.1)";
+            this.elements.tamperingResult.style.borderColor = "var(--success-green)";
+            this.elements.tamperingResult.style.animation = "";
+        }
     }
 
     /**
      * Updates the display with current values
      */
     updateDisplay() {
-        // Set initial state
-        this.resetAttackVisualization();
+        // Set initial clean state
+        this.resetTamperingDemo();
     }
 
     /**
      * Clears all active animations
      */
     clearAllAnimations() {
-        // Clear feature highlights
-        this.elements.features.forEach(feature => {
-            if (feature.container) {
-                feature.container.classList.remove('active');
+        // Clear benefit highlights
+        this.elements.benefits.forEach(benefit => {
+            if (benefit) {
+                benefit.classList.remove('active');
+                benefit.style.animation = "";
             }
         });
         
@@ -664,17 +501,15 @@ class BlockchainPart2Demo {
             benefit.style.color = "";
         });
         
-        // Clear math guarantee highlight
-        const mathGuarantee = document.querySelector('.math-guarantee');
-        if (mathGuarantee) {
-            mathGuarantee.style.animation = "";
-            mathGuarantee.style.background = "";
-            mathGuarantee.style.color = "";
+        // Clear trust model highlights
+        if (this.elements.oldWay) {
+            this.elements.oldWay.style.animation = "";
+            this.elements.oldWay.style.background = "";
         }
         
-        // Reset security features animation
-        if (this.elements.securityFeatures) {
-            this.elements.securityFeatures.style.animation = "";
+        if (this.elements.newWay) {
+            this.elements.newWay.style.animation = "";
+            this.elements.newWay.style.background = "";
         }
     }
 
@@ -685,9 +520,8 @@ class BlockchainPart2Demo {
     getStatus() {
         return {
             isActive: this.isActive,
-            currentPhase: this.currentAnimationPhase,
-            attackScenarios: this.attackScenarios.length,
-            securityFeatures: this.securityDemos.length,
+            currentSubSlide: this.currentSubSlide,
+            securityBenefits: this.securityBenefits.length,
             controller: this.animationController.getStatus()
         };
     }
