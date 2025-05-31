@@ -14,6 +14,9 @@ class Presentation {
         // Slide definitions
         // Replace the slideDefinitions array in your presentation.js with this:
 
+// Updated slideDefinitions array for presentation.js
+// Replace the existing slideDefinitions in your presentation.js constructor with this:
+
 this.slideDefinitions = [
     {
         id: 'intro',
@@ -28,31 +31,125 @@ this.slideDefinitions = [
         animationClass: 'HashDemo'
     },
     {
-        id: 'signatures',
-        title: 'Digital Signatures: Your Cryptographic DNA',
-        subtitle: 'Proving authenticity without revealing secrets',
-        animationClass: 'DigitalSignaturesDemo'
+        id: 'signatures-part1',
+        title: 'Digital Signatures Part 1: The Concept',
+        subtitle: 'Your cryptographic DNA for proving authenticity',
+        animationClass: 'SignaturesPart1Demo'
     },
     {
-        id: 'merkle',
-        title: 'Merkle Trees: The Efficient Detective',
-        subtitle: 'Verify data integrity without downloading everything',
-        animationClass: 'MerkleTreeDemo'
+        id: 'signatures-part2',
+        title: 'Digital Signatures Part 2: Security & Verification',
+        subtitle: 'Why digital beats physical signatures every time',
+        animationClass: 'SignaturesPart2Demo'
+    },
+    {
+        id: 'merkle-part1',
+        title: 'Merkle Trees Part 1: Tree Construction',
+        subtitle: 'Building efficient data structures from the ground up',
+        animationClass: 'MerklePart1Demo'
+    },
+    {
+        id: 'merkle-part2',
+        title: 'Merkle Trees Part 2: Verification & Security',
+        subtitle: 'Proving inclusion and detecting tampering',
+        animationClass: 'MerklePart2Demo'
     },
     {
         id: 'blockchain-part1',
-        title: 'Building a Blockchain',
+        title: 'Building a Blockchain Part 1: Assembly',
         subtitle: 'Watch how our three concepts create an unbreakable chain',
         animationClass: 'BlockchainPart1Demo'
     },
     {
         id: 'blockchain-part2',
-        title: 'Why This Creates Unbreakable Security',
+        title: 'Building a Blockchain Part 2: Security Guarantees',
         subtitle: 'Mathematical guarantees without central authority',
         animationClass: 'BlockchainPart2Demo'
     }
 ];
-    }
+
+// Also update the corresponding script tags in index.html:
+/*
+
+*/
+
+// Update the intro slide's concept cards to match the new structure:
+// In generateIntroSlide method, update the concept cards:
+
+// generateIntroSlide(slideDef) {
+//     return `
+//         <div class="slide ${slideDef.id === 'intro' ? 'active' : ''}" data-slide="${slideDef.id}">
+//             <div class="slide-header">
+//                 <h1>${slideDef.title}</h1>
+//                 <p class="subtitle">${slideDef.subtitle}</p>
+//             </div>
+            
+//             <div class="slide-content">
+//                 <div class="intro-grid">
+//                     <div class="concept-card" data-concept="hash">
+//                         <span class="concept-icon">🌪️</span>
+//                         <h3>Hash Functions</h3>
+//                         <p>The digital blender that creates unique fingerprints</p>
+//                     </div>
+                    
+//                     <div class="concept-card" data-concept="signatures">
+//                         <span class="concept-icon">🔐</span>
+//                         <h3>Digital Signatures</h3>
+//                         <p>Your cryptographic DNA - concept and security</p>
+//                         <div class="concept-parts">
+//                             <span class="part-indicator">Part 1: Concept</span>
+//                             <span class="part-indicator">Part 2: Security</span>
+//                         </div>
+//                     </div>
+                    
+//                     <div class="concept-card" data-concept="merkle">
+//                         <span class="concept-icon">🌳</span>
+//                         <h3>Merkle Trees</h3>
+//                         <p>Efficient verification without downloading everything</p>
+//                         <div class="concept-parts">
+//                             <span class="part-indicator">Part 1: Construction</span>
+//                             <span class="part-indicator">Part 2: Verification</span>
+//                         </div>
+//                     </div>
+                    
+//                     <div class="concept-card" data-concept="blockchain">
+//                         <span class="concept-icon">⛓️</span>
+//                         <h3>Blockchain</h3>
+//                         <p>How it all comes together securely</p>
+//                         <div class="concept-parts">
+//                             <span class="part-indicator">Part 1: Assembly</span>
+//                             <span class="part-indicator">Part 2: Security</span>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+            
+//             <div class="slide-footer">
+//                 <div class="key-points">
+//                     <div class="key-point">
+//                         <span class="bullet">🎯</span>
+//                         <span>Simple visual explanations of complex concepts</span>
+//                     </div>
+//                     <div class="key-point">
+//                         <span class="bullet">🔍</span>
+//                         <span>See how each piece builds on the others</span>
+//                     </div>
+//                     <div class="key-point">
+//                         <span class="bullet">📚</span>
+//                         <span>Deep dive into each topic with multi-part lessons</span>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     `;
+// }
+
+// Add CSS for the new concept parts styling to styles/slides.css:
+/*
+
+*/
+
+}
     /**
      * Initializes the presentation
      */

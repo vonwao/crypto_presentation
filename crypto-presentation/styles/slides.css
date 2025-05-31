@@ -2321,3 +2321,27 @@
         border-width: 4px;
     }
 }
+
+.concept-parts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+.part-indicator {
+    font-size: 0.8rem;
+    color: var(--primary-blue);
+    background: rgba(0, 212, 255, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 212, 255, 0.3);
+    text-align: center;
+}
+
+.concept-card:hover .part-indicator {
+    background: rgba(0, 212, 255, 0.2);
+    border-color: var(--primary-blue);
+}
