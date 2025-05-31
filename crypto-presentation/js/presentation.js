@@ -175,22 +175,22 @@ class Presentation {
                 animationClass: 'BlockchainPart2Demo',
                 subSlides: [
                     {
-                        id: 'blockchain-2-attacks',
-                        title: 'Blockchain: Attack Simulations',
-                        subtitle: 'Watch attacks fail against mathematical security',
-                        sections: ['attack-simulation', 'attack-scenario']
+                        id: 'blockchain-2-tampering',
+                        title: 'Why Tampering Fails',
+                        subtitle: 'One clear example of why you can\'t change blockchain',
+                        sections: ['tampering-demo']
                     },
                     {
-                        id: 'blockchain-2-security',
-                        title: 'Blockchain: Security Guarantees',
-                        subtitle: 'Four pillars of unbreakable security',
-                        sections: ['security-features']
+                        id: 'blockchain-2-benefits',
+                        title: 'Security Benefits',
+                        subtitle: 'Three key benefits in plain language',
+                        sections: ['benefits-demo']
                     },
                     {
                         id: 'blockchain-2-trust',
-                        title: 'Blockchain: Revolutionary Trust Model',
-                        subtitle: 'Mathematical proof replaces central authority',
-                        sections: ['trust-comparison']
+                        title: 'Revolutionary Trust',
+                        subtitle: 'Old way vs New way - no middleman needed',
+                        sections: ['trust-demo']
                     }
                 ]
             }
