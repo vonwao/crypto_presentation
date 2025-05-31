@@ -841,3 +841,520 @@
         gap: 2rem;
     }
 }
+
+/* Additional Merkle Tree Styles - Add these to styles/slides.css */
+
+/* ==== MERKLE TREES SLIDE ==== */
+.merkle-demo {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    height: 100%;
+}
+
+.tree-section {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tree-container {
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    width: 100%;
+    max-width: 1000px;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tree-structure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.tree-level {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    position: relative;
+}
+
+.tree-level.root-level {
+    gap: 0;
+}
+
+.tree-level.level-1 {
+    gap: 4rem;
+}
+
+.tree-level.level-2 {
+    gap: 2rem;
+}
+
+.tree-level.leaf-level {
+    gap: 0.5rem;
+}
+
+/* Tree Nodes */
+.tree-node {
+    background: var(--glass-bg);
+    border: 2px solid var(--primary-blue);
+    border-radius: 15px;
+    padding: 1rem;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-size: var(--font-size-xs);
+    position: relative;
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+.tree-node.leaf-node {
+    border-color: var(--success-green);
+    background: rgba(0, 255, 136, 0.05);
+    max-width: 120px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.tree-node.branch-node {
+    border-color: var(--primary-blue);
+    background: rgba(0, 212, 255, 0.05);
+    min-width: 120px;
+}
+
+.tree-node.root-node {
+    border-color: var(--primary-gold);
+    background: rgba(255, 215, 0, 0.05);
+    font-weight: bold;
+    min-width: 150px;
+    border-width: 3px;
+}
+
+/* Node States */
+.tree-node.building {
+    animation: nodeBuilding 1s ease-out;
+    border-color: var(--primary-gold);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.tree-node.highlighted {
+    animation: glow 2s infinite;
+    transform: scale(1.05);
+}
+
+.tree-node.proof-path {
+    border-color: var(--primary-gold);
+    background: rgba(255, 215, 0, 0.1);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    animation: proofPathPulse 2s infinite;
+}
+
+.tree-node.tampered {
+    border-color: var(--alert-red);
+    background: rgba(255, 71, 87, 0.1);
+    color: var(--alert-red);
+    animation: tamperShake 0.5s ease-in-out infinite;
+}
+
+/* Node Content */
+.node-label {
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.transaction-content {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.2;
+}
+
+.node-hash {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: var(--primary-blue);
+    word-break: break-all;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 0.3rem;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+}
+
+.root-node .node-hash {
+    color: var(--primary-gold);
+    font-weight: bold;
+}
+
+.leaf-node .node-hash {
+    color: var(--success-green);
+}
+
+/* Tree Connections */
+.tree-connections {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.connection-line {
+    position: absolute;
+    background: var(--text-secondary);
+    opacity: 0.3;
+    transition: all 0.3s ease;
+}
+
+.connection-line.active {
+    background: var(--primary-gold);
+    opacity: 0.8;
+    box-shadow: 0 0 5px var(--primary-gold);
+}
+
+/* Hash Particles */
+.hash-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.combination-particle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 6px currentColor;
+}
+
+/* Proof Section */
+.proof-section {
+    flex: 1;
+    background: var(--glass-bg);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.proof-demonstration {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.proof-scenario {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 1.5rem;
+}
+
+.proof-question {
+    font-size: var(--font-size-md);
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--text-primary);
+}
+
+.proof-path {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.proof-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-left: 3px solid var(--primary-blue);
+}
+
+.step-number {
+    background: var(--primary-blue);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.step-description {
+    flex: 1;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.step-value {
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 212, 255, 0.1);
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    border: 1px solid var(--primary-blue);
+}
+
+.sibling-hashes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sibling-hash {
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 255, 136, 0.1);
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    border: 1px solid var(--success-green);
+    font-size: 0.9rem;
+}
+
+.computation-path {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.computation-step {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    background: rgba(255, 215, 0, 0.05);
+    border-radius: 5px;
+    border-left: 3px solid var(--primary-gold);
+    opacity: 0;
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.proof-result {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 15px;
+    border: 2px solid var(--success-green);
+    margin-top: 1rem;
+}
+
+.result-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.result-icon {
+    font-size: 2rem;
+    color: var(--success-green);
+}
+
+.result-text {
+    font-size: var(--font-size-md);
+    font-weight: bold;
+    color: var(--success-green);
+}
+
+/* Animations */
+@keyframes nodeBuilding {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+        border-color: var(--text-secondary);
+    }
+    50% {
+        transform: scale(1.1) translateY(-5px);
+        border-color: var(--primary-gold);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        border-color: var(--primary-blue);
+    }
+}
+
+@keyframes proofPathPulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        border-color: var(--primary-gold);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+        border-color: #ffed4e;
+    }
+}
+
+@keyframes tamperShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
+@keyframes particleFlow {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--deltaX), var(--deltaY)) scale(0.5);
+    }
+}
+
+@keyframes hashCombination {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+        background: var(--primary-gold);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        background: var(--glass-bg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .tree-level.level-1 {
+        gap: 2rem;
+    }
+    
+    .tree-level.level-2 {
+        gap: 1rem;
+    }
+    
+    .tree-node {
+        min-width: 80px;
+        padding: 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .tree-node.leaf-node {
+        max-width: 100px;
+    }
+    
+    .merkle-demo {
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .tree-level {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .tree-level.leaf-level {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
+    }
+    
+    .tree-level.level-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .tree-node {
+        min-width: 70px;
+        padding: 0.6rem;
+        font-size: 0.7rem;
+    }
+    
+    .tree-node.leaf-node {
+        max-width: 90px;
+    }
+    
+    .proof-step {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .step-description {
+        font-size: var(--font-size-xs);
+    }
+    
+    .merkle-demo {
+        gap: 1.5rem;
+    }
+    
+    .tree-container {
+        padding: 1rem;
+        min-height: 300px;
+    }
+    
+    .proof-section {
+        padding: 1rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .hash-particles,
+    .combination-particle {
+        display: none !important;
+    }
+    
+    .tree-node {
+        border: 2px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+    }
+    
+    .proof-section {
+        page-break-inside: avoid;
+    }
+}
+
+/* Accessibility */
+.tree-node:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+.tree-node[aria-selected="true"] {
+    border-color: var(--primary-gold);
+    background: rgba(255, 215, 0, 0.1);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .tree-node {
+        border-width: 3px;
+    }
+    
+    .node-hash {
+        background: rgba(255, 255, 255, 0.9);
+        color: #000;
+    }
+}
+    
